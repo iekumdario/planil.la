@@ -34,3 +34,9 @@ WIP
 
 WIP
 
+### git gitflow ###
+* master : branch en produción
+* develop: branch en desarrollo
+* release*: branch para versiones de prueba
+* feature: branch para desarrollo de funciones
+
