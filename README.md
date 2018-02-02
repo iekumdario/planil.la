@@ -13,6 +13,12 @@ WIP
 ### Configuración Incial ###
 
 WIP
+- Crear credencias de git en TFS
+- Clonar repositorio
+- BD.... (WIP)
+- Verificar que JAVA esta instalado
+- Abrir proyecto con IntellJ
+- Correr
 
 
 ### Herramientas de desarrollo ###
@@ -25,10 +31,11 @@ WIP
 * Template Engine: Thymeleaf v3.0.7
 * ORM: Hibernate v5.1.0 Final
 * DBCP: Tomcat-dbcp v8.0.32
-* Frontend Framewor: Bootstrap v4 | Material Design for Bootstrap v4.4.1
+* Frontend Framewor: Bootstrap v4 | Material Design for Bootstrap v4.4.1 
+  (https://mdbootstrap.com/material-design-for-bootstrap/) Pedir a Carlos M. que Revise
 
 ### Base de datos ###
-* Postgresql - RDBMS v9.5.9
+* MySql -  WIP (Jose Quintero)
 
 ### Equipo ###
 
