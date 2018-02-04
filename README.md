@@ -51,14 +51,3 @@ WIP
 * develop: branch en desarrollo
 * release*: branch para versiones de prueba
 * feature: branch para desarrollo de funciones
-
-### Equipo ###
-
-WIP
-
-### git [gitflow](https://danielkummer.github.io/git-flow-cheatsheet/) ###
-* master : branch en produción
-* develop: branch en desarrollo
-* release*: branch para versiones de prueba
-* feature: branch para desarrollo de funciones
-
