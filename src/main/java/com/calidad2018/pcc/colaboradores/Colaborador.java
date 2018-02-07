@@ -10,7 +10,7 @@ public class Colaborador {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String id;
+    private Long id;
 
     public Colaborador() {
     }
@@ -23,11 +23,11 @@ public class Colaborador {
         this.name = name;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

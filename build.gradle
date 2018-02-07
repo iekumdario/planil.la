@@ -14,7 +14,13 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+
     /* web frameworks dependecies */
+    compile "org.springframework.boot:spring-boot-starter-web"
+
+    // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'org.springframework:spring-orm:4.2.5.RELEASE'
     compile 'org.hibernate:hibernate-core:5.2.1.Final'
