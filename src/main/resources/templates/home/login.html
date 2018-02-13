@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/styles :: head"/> /*/-->
+
+    <title>Login</title>
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Log In!</h1>
+
+    <div class="col-sm-5  offset-md-2">
+        <form id="loginform" th:action="@{/login}" th:object="${user}" method="post">
+            <!--Form-->
+            <div class="card wow fadeInRight semitrasparent" data-wow-delay="0.3s">
+
+                <div class="card-body z-depth-2">
+
+                    <div th:replace="fragments/flash :: flash"></div>
+
+                    <!--Body-->
+                    <div class="md-form white-text mt-4">
+                        <input th:field="*{username}" type="text" id="username" class="form-control white-text">
+                        <label class="white-text" for="username">Usuario</label>
+                    </div>
+
+                    <div class="md-form mt-5">
+                        <input type="password" id="password" th:field="*{password}" class="form-control white-text">
+                        <label class="white-text" for="password">Contraseña</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit"  id="loginBtn" class="btn indigo accent-4 full-width" > Iniciar sesión</button>
+                    </div>
+
+                    <div class="text-center mt-2 nav-item">
+                        <a class="nav-link" href="#">Recuperar contraseña
+                            <span class="sr-only white-text">(current)</span>
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </form>
+        <!--/.Form-->
+    </div>
+
+
+</div>
+
+
+<th:block th:include="fragments/scripts :: scripts"/>
+
+</body>
+</html>

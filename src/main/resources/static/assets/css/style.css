@@ -1,0 +1,18 @@
+/* Your custom styles */
+
+.log-in-bg {
+    background: url("../img/log-in-bg.jpg")no-repeat center center;
+    background-size: cover;
+}
+
+.hm-gradient .full-bg-img {
+    background: rgba(31, 30, 30, 0.4);
+}
+
+.full-width{
+    width: 100%;
+}
+
+.semitrasparent {
+    background: rgba(0, 0, 0, 0.5)
+}

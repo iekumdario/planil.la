@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+
+</head>
+
+
+<body>
+
+<div th:fragment="flash" th:if="${flash != null}" class="container">
+    <div class="message white-text">
+        <div id="flashMessage" th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+    </div>
+</div>
+
+
+<div th:fragment="flashApp" th:if="${flashApp != null}" class="container">
+    <div id="flashMessage" th:classappend="'alert-' + ${#strings.toLowerCase(flashApp.status)}" th:text="${flashApp.message}" class="alert"></div>
+</div>
+
+
+
+
+<th:block th:include="fragments/scripts :: scripts"/>
+</body>
+</html>
