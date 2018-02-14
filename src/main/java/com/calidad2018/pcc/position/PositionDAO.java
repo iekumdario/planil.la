@@ -1,8 +1,8 @@
-package com.calidad2018.pcc.colaboradores;
+package com.calidad2018.pcc.position;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ColaboradorDAO extends CrudRepository<Colaborador, Long> {
+public interface PositionDAO extends CrudRepository<Position, Long> {
 }
