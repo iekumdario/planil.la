@@ -1,18 +1,37 @@
-/* Your custom styles */
 
-.log-in-bg {
-    background: url("../img/log-in-bg.jpg")no-repeat center center;
+.intro-2 {
+    background: url("https://mdbootstrap.com/img/Photos/Others/images/89.jpg")no-repeat center center;
     background-size: cover;
 }
 
-.hm-gradient .full-bg-img {
-    background: rgba(31, 30, 30, 0.4);
+.top-nav-collapse {
+    background-color: #39448c !important;
 }
 
-.full-width{
-    width: 100%;
+.navbar:not(.top-nav-collapse) {
+    background: transparent !important;
 }
 
-.semitrasparent {
-    background: rgba(0, 0, 0, 0.5)
+@media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #39448c !important;
+    }
+}
+
+.md-form .prefix {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+h6 {
+    line-height: 1.7;
+}
+
+@media (max-width: 740px) {
+    .full-height,
+    .full-height body,
+    .full-height header,
+    .full-height header .view {
+        height: 1100px;
+    }
 }
