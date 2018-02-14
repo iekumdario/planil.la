@@ -1,11 +1,9 @@
 package com.calidad2018.pcc.home;
 
-import com.calidad2018.pcc.colaboradores.Colaborador;
+import com.calidad2018.pcc.employee.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -13,13 +11,13 @@ public class HomeController {
     @RequestMapping("/")
        public String home(Model model) {
 
-        Colaborador colaborador = new Colaborador();
+        Employee employee = new Employee();
 
-        colaborador.setId(123l);
+        employee.setId(123l);
 
-        colaborador.setName("Esteban");
+        employee.setName("Esteban");
 
-        model.addAttribute("colaborador",colaborador);
+        model.addAttribute("colaborador", employee);
 
         return "home/index";
     }
@@ -28,3 +26,4 @@ public class HomeController {
 
 
 }
+
