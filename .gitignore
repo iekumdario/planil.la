@@ -38,6 +38,9 @@ gradle-app.setting
 hs_err_pid*
 
 .gradle/
+.idea/libraries/
+.idea/sqldialects.xml
+.idea/uiDesigner.xml
 .idea/.name
 .idea/compiler.xml
 .idea/dbnavigator.xml
