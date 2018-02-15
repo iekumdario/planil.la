@@ -28,6 +28,8 @@ public class LogInController {
         } catch (Exception ex) {
             // "flash" session attribute must not exist...do nothing and proceed normally
         }
+
+
         return "home/login";
 
     }

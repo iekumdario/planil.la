@@ -8,7 +8,7 @@
 <body>
 
 <div th:fragment="flash" th:if="${flash != null}" class="container">
-    <div class="message white-text">
+    <div class="message mb-4">
         <div id="flashMessage" th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
     </div>
 </div>

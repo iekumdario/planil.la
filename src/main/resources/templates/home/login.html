@@ -46,7 +46,7 @@
                     <div class="row flex-center pt-5 mt-3">
                         <div class="col-md-5 text-center text-md-left mb-5 mr-5">
                             <div class="white-text">
-                                <h1 class="display-4 font-bold wow fadeInLeft" data-wow-delay="0.3s">Planilla Con Calidad</h1>
+                                <h1 class="display-4 font-bold wow fadeInLeft" data-wow-delay="0.3s">Planil.la</h1>
                                 <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
                                 <h6 class="wow fadeInLeft" data-wow-delay="0.3s">La forma más completa, rápida, fácil y segura de administrar la planilla de tu empresa.
                                 </h6>
@@ -67,16 +67,18 @@
                                             <hr>
                                         </div>
 
+                                        <div th:replace="fragments/flash :: flash"></div>
+
                                         <!--Body-->
                                         <div class="md-form">
                                             <i class="fa fa-user prefix grey-text"></i>
-                                            <input th:field="*{username}" type="text" id="username" class="form-control" minlength="3" required>
-                                            <label for="username">Username</label>
+                                            <input th:field="*{username}" type="text" id="username" class="form-control" oninvalid="this.setCustomValidity('Este campo es obligatorio')" oninput="setCustomValidity('')" required >
+                                            <label for="username">Usuario</label>
                                         </div>
                                         <div class="md-form">
                                             <i class="fa fa-envelope prefix grey-text"></i>
-                                            <input type="password" id="password" th:field="*{password}" minlength="3" required class="form-control">
-                                            <label for="password">Password</label>
+                                            <input type="password" id="password" th:field="*{password}"  required oninvalid="this.setCustomValidity('Este campo es obligatorio')" oninput="setCustomValidity('')" class="form-control">
+                                            <label for="password">Contraseña</label>
                                         </div>
 
 
@@ -85,7 +87,7 @@
                                             <button type="submit" id="loginBtn" class="btn btn-indigo">Iniciar sessión</button>
                                             <hr>
                                             <div class="text-center mt-2 nav-item">
-                                                <a class="nav-link" href="#">Recuperar contraseña
+                                                <a class="nav-link" href="#">MIS-2018
                                                     <span class="sr-only white-text">(current)</span>
                                                 </a>
                                             </div>

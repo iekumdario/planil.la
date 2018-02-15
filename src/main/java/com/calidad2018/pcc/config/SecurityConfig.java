@@ -2,6 +2,8 @@ package com.calidad2018.pcc.config;
 
 import com.calidad2018.pcc.core.FlashMessage;
 import com.calidad2018.pcc.usuarios.UserService;
+import com.calidad2018.pcc.utils.Constantes;
+import com.sun.tools.javac.code.Attribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, exception) -> {
-            request.getSession().setAttribute("flash", new FlashMessage("Incorrect username and/or password. Please try again.", FlashMessage.Status.FAILURE));
+            request.getSession().setAttribute("flash", new FlashMessage(Constantes.WRONG_CREDENTIALS_MSG, FlashMessage.Status.FAILURE));
             response.sendRedirect("/login");
         };
     }

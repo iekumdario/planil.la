@@ -13,15 +13,8 @@ public class HomeController {
     @RequestMapping("/")
        public String home(Model model) {
 
-        Colaborador colaborador = new Colaborador();
 
-        colaborador.setId(123l);
-
-        colaborador.setName("Esteban");
-
-        model.addAttribute("colaborador",colaborador);
-
-        return "home/index";
+        return "home/noEmployee";
     }
 
 
