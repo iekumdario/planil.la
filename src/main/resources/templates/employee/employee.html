@@ -7,13 +7,41 @@
 </head>
 <body>
 <div th:replace="fragments/navigation :: navigation">...</div>
-<h1>Form</h1>
-<form action="#" th:action="@{/employee}" th:object="${employee}" method="post">
-    <p>Name: <input type="text" th:field="*{name}" /></p>
+<h1>New Employee</h1>
+<form action="#" th:action="@{/employee}" th:object="${employee}" method="post" id="newEmployeeForm">
+    <p>First Name: <input type="text" th:field="*{firstName}" /></p>
+    <p>Last Name: <input type="text" th:field="*{lastName}" /></p>
+    <p>ID Document: <input type="text" th:field="*{idDocument}" /></p>
+    <p>Date of birth: <input type="date" th:field="*{dateOfBirth}" /></p>
+    <p> Gender:
+    <select th:field="*{gender}">
+        <option th:each="gender: ${genders}" th:value="${gender}" th:text="${gender}" />
+    </select></p>
+    <p>Phone number: <input type="tel" th:field="*{phoneNumber}" /></p>
+    <p>Mobile number: <input type="tel" th:field="*{mobileNumber}" /></p>
+    <p>Email: <input type="email" th:field="*{email}" /></p>
+    <p>Address: <textarea rows="4" cols="50" name="address" form="newEmployeeForm" th:field="*{address}"/></p>
+    <p>Academic Details: <textarea rows="4" cols="50" name="academicDetails" form="newEmployeeForm" th:field="*{academicDetails}"/></p>
+    <p>Country of origin:
+        <select th:field="*{countryOfOrigin}">
+            <option th:each="country: ${countries}" th:value="${country.ISO3}" th:text="${country.name}" />
+        </select></p>
+    <p>Department:
+        <select th:field="*{department}">
+            <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.description}" />
+        </select></p>
+    <p>Position:
     <select th:field="*{position}">
         <option th:each="availablePosition: ${availablePositions}" th:value="${availablePosition.id}" th:text="${availablePosition.name}" />
-    </select>
-    <!--<p>Message: <input type="text" th:field="*{content}" /></p>-->
+    </select></p>
+    <h2>Contract Details:</h2>
+    <p>Base Salary<input type="number" th:field="*{contract.baseSalary}" /></p>
+    <p>Start Date: <input type="date" th:field="*{contract.startDate}" /></p>
+    <p>Contract Type:
+    <select th:field="*{contract.contractType}">
+        <option th:each="contractType: ${contractTypes}" th:value="${contractType.id}" th:text="${contractType.description}" />
+    </select></p>
+    <p>End Date: <input type="date" th:field="*{contract.endDate}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 <div th:replace="fragments/scripts">...</div></head>
