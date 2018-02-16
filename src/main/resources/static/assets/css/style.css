@@ -1,0 +1,37 @@
+
+.intro-2 {
+    background: url("https://mdbootstrap.com/img/Photos/Others/images/89.jpg")no-repeat center center;
+    background-size: cover;
+}
+
+.top-nav-collapse {
+    background-color: #39448c !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+    background: transparent !important;
+}
+
+@media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #39448c !important;
+    }
+}
+
+.md-form .prefix {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+h6 {
+    line-height: 1.7;
+}
+
+@media (max-width: 740px) {
+    .full-height,
+    .full-height body,
+    .full-height header,
+    .full-height header .view {
+        height: 1100px;
+    }
+}

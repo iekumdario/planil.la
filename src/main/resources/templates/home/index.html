@@ -1,33 +1,143 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Planilla con calidad</title>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+
+    <title>Home</title>
 
 </head>
 
-<body>
+<body class="body-background">
 
-<div class="container">
-
-    <h1 th:text="${colaborador.name}">Hello, world!</h1>
-
-    <h1 th:text="${colaborador.id}">Hello, world!</h1>
-
-</div>
+<div th:include="fragments/navBar :: navbar"></div>
 
 
+<!--Main Navigation-->
+<main>
 
-<!-- jQuery first, then Tether, then Bootstrap JS. -->
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <div class="container flex-top">
 
+        <div class="card card-cascade">
+
+            <div class="modal-body">
+
+                <div class="col-md-12 p-3">
+
+                    <div>
+
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Colaboradores Permante</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Colaboradores Temporales</a>
+                            </li>
+
+                        </ul>
+
+                        <div class="d-inline">
+
+                            <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Colaboradores</h2>
+
+
+                            <div class="btn-group right-element">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">Planillas
+                                </button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Quincenal</a>
+                                    <a class="dropdown-item" href="#">Decimo</a>
+                                    <a class="dropdown-item" href="#">Vacaciones</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <a href="/formulas/add" id="createFormula"
+                           class="btn btn-warning mt-0 mx-3 right-element">
+                            Añadir Colaborador
+                        </a>
+
+                    </div>
+
+                    <div class="mt-5">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Ej. Jose Perez"
+                                   aria-label="Search">
+                            <button class="btn btn-warning btn-sm my-0" type="submit">Buscar</button>
+                        </form>
+
+                    </div>
+
+
+                    <div class="mt-2 table-ceter col-md-12 px-0">
+
+                        <table id="formulasList" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Tipo de colaborador</th>
+                                <th>Cargo</th>
+                                <th>Departamento</th>
+                                <th>Opciones</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Juan</td>
+                                <td>Solis</td>
+                                <td>Permanente</td>
+                                <td>Gerente</td>
+                                <td>Ventas</td>
+                                <td>
+                                    <div class="d-flex flex-row">
+
+                                        <a href="#" class="mx-4 font-weight-bold">
+                                            Pagar Planilla
+                                        </a>
+
+                                        <a href="#" class="mx-4 font-weight-bold">
+                                            Pagar Decimo
+                                        </a>
+
+                                        <a href="#" class="mx-4 font-weight-bold">
+                                            Editar
+                                        </a>
+
+                                        <a href="#" class="mx-4 font-weight-bold">
+                                            Eliminar
+                                        </a>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div th:include="fragments/navBar :: botonNavbar"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<!--/Main Navigation-->
+
+<th:block th:include="fragments/scripts :: scripts"/>
 
 </body>
 </html>

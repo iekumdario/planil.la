@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+
+    <title>DContinuos - Error</title>
+
+</head>
+
+<body class="body-background">
+
+<div th:include="fragments/navBar :: sideNavbar"></div>
+
+<div id="main" class="p-0">
+
+    <div th:include="fragments/navBar :: navbar"></div>
+
+    <div th:replace="fragments/flash :: flashApp"></div>
+
+    <main>
+
+        <div class="container flex-top">
+
+            <div class="card card-cascade">
+
+                <div class="modal-body">
+
+                    <div class="col-md-12 p-3">
+
+                        <div>
+
+                            <div class="d-inline">
+
+                                <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">¡Oh wao! El sistema no está disponible</h2>
+                                <p>AHa ocurrido una situación que impide que inicies sesión. Tranquilo, ya lo estamos revisando. Vuelve a intentar en algunos minutos.</p>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div th:include="fragments/navBar :: botonNavbar"></div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- SCRIPTS -->
+<th:block th:include="fragments/scripts :: scripts"/>
+
+</body>
+
+</html>
