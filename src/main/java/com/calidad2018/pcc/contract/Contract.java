@@ -2,6 +2,7 @@ package com.calidad2018.pcc.contract;
 
 import com.calidad2018.pcc.contracttype.ContractType;
 import com.calidad2018.pcc.employee.Employee;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,8 +24,10 @@ public class Contract {
 
     private int weeklyHours = 0;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date startDate;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date endDate;
 
     @Id

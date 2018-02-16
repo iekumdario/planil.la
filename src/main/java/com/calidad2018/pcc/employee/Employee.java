@@ -4,6 +4,7 @@ import com.calidad2018.pcc.contract.Contract;
 import com.calidad2018.pcc.departament.Department;
 import com.calidad2018.pcc.utils.Gender;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Employee {
 
     private String idDocument;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date dateOfBirth;
 
     private String address;
@@ -176,5 +178,26 @@ public class Employee {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", idDocument='" + idDocument + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", address='" + address + '\'' +
+                ", countryOfOrigin='" + countryOfOrigin + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", academicDetails='" + academicDetails + '\'' +
+                ", gender=" + gender +
+                ", position=" + position +
+                ", contract=" + contract +
+                ", department=" + department +
+                ", id=" + id +
+                '}';
     }
 }

@@ -60,8 +60,14 @@ public class EmployeeController {
 
     @PostMapping("/employee")
     public String employeeSubmit(@ModelAttribute Employee employee, Model model, BindingResult bindingResult) {
+
         if(!bindingResult.hasErrors()){
+
+
             model.addAttribute("employee", employee);
+
+            System.out.printf(employee.toString());
+
             return "home/index";
         }
         return "error";
