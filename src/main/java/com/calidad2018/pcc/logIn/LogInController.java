@@ -1,6 +1,5 @@
 package com.calidad2018.pcc.logIn;
 
-import com.calidad2018.pcc.colaboradores.Colaborador;
 import com.calidad2018.pcc.usuarios.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
