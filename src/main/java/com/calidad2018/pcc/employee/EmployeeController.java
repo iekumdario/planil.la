@@ -6,6 +6,8 @@ import com.calidad2018.pcc.contracttype.ContractTypeDAO;
 import com.calidad2018.pcc.departament.DepartamentDAO;
 import com.calidad2018.pcc.departament.Department;
 import com.calidad2018.pcc.position.PositionDAO;
+import com.calidad2018.pcc.utils.Country;
+import com.calidad2018.pcc.utils.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +55,7 @@ public class EmployeeController {
 
         model.addAttribute("countries",countries.toArray());
 
-        return "employee/employee";
+        return "employee/new";
     }
 
     @PostMapping("/employee")

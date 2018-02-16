@@ -2,6 +2,7 @@ package com.calidad2018.pcc.employee;
 import com.calidad2018.pcc.position.Position;
 import com.calidad2018.pcc.contract.Contract;
 import com.calidad2018.pcc.departament.Department;
+import com.calidad2018.pcc.utils.Gender;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.NumberFormat;
 
