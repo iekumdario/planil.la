@@ -51,3 +51,11 @@ hs_err_pid*
 .idea/vcs.xml
 .idea/workspace.xml
 /out/
+/.idea/libraries/
+
+/.idea/libraries/Spring_Webflow_2_4_0.xml
+/.idea/libraries/Spring_Web_Services_2_0_2.xml
+/.idea/libraries/Spring_Security_3_2_5.xml
+/.idea/libraries/Spring_Integration_4_0_3.xml
+/.idea/libraries/Spring_Data_JPA_1_3_3.xml
+/.idea/libraries/Spring_Batch_2_2_6.xml

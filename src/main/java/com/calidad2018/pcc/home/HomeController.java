@@ -11,15 +11,9 @@ public class HomeController {
     @RequestMapping("/")
        public String home(Model model) {
 
-//        Employee employee = new Employee();
-//
-//        employee.setId(123l);
-//
-//        employee.setName("Esteban");
-//
-//        model.addAttribute("colaborador", employee);
 
-        return "home/index";
+
+        return "home/noEmployee";
     }
 
 
