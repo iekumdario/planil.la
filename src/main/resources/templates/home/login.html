@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/styles :: head"/> /*/-->
+
+    <title>Login</title>
+
+
+</head>
+
+<body>
+
+
+<header>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <strong>PCC</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                    aria-controls="navbarSupportedContent-7"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+                <ul class="navbar-nav mr-auto">
+
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Soporte</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Intro Section-->
+    <section class="view intro-2 hm-indigo-strong">
+        <div class="full-bg-img">
+            <div class="container flex-center">
+                <div class="d-flex align-items-center">
+                    <div class="row flex-center pt-5 mt-3">
+                        <div class="col-md-5 text-center text-md-left mb-5 mr-5">
+                            <div class="white-text">
+                                <h1 class="display-4 font-bold wow fadeInLeft" data-wow-delay="0.3s">Planil.la</h1>
+                                <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
+                                <h6 class="wow fadeInLeft" data-wow-delay="0.3s">La forma más completa, rápida, fácil y segura de administrar la planilla de tu empresa.
+                                </h6>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 ml-4">
+                            <!--Form-->
+                            <div class="card wow fadeInRight" data-wow-delay="0.3s">
+                                <form id="loginform" th:action="@{/login}" th:object="${user}" method="post">
+                                    <div class="card-body z-depth-2">
+                                        <!--Header-->
+                                        <div class="text-center">
+                                            <h3 class="dark-grey-text">
+                                                <strong>¡Bienvenido!</strong>
+                                            </h3>
+                                            <hr>
+                                        </div>
+
+                                        <div th:replace="fragments/flash :: flash"></div>
+
+                                        <!--Body-->
+                                        <div class="md-form">
+                                            <i class="fa fa-user prefix grey-text"></i>
+                                            <input th:field="*{username}" type="text" id="username" class="form-control" oninvalid="this.setCustomValidity('Este campo es obligatorio')" oninput="setCustomValidity('')" required >
+                                            <label for="username">Usuario</label>
+                                        </div>
+                                        <div class="md-form">
+                                            <i class="fa fa-lock prefix grey-text"></i>
+                                            <input type="password" id="password" th:field="*{password}"  required oninvalid="this.setCustomValidity('Este campo es obligatorio')" oninput="setCustomValidity('')" class="form-control">
+                                            <label for="password">Contraseña</label>
+                                        </div>
+
+
+
+                                        <div class="text-center">
+                                            <button type="submit" id="loginBtn" class="btn btn-indigo">Iniciar sessión</button>
+                                            <hr>
+                                            <div class="text-center mt-2 nav-item">
+                                                <a class="nav-link" href="#">MIS-2018
+                                                    <span class="sr-only white-text">(current)</span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <!--/.Form-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</header>
+
+<div class="container">
+
+
+
+
+</div>
+
+
+<th:block th:include="fragments/scripts :: scripts"/>
+
+</body>
+</html>
