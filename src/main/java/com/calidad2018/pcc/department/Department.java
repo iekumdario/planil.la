@@ -1,4 +1,4 @@
-package com.calidad2018.pcc.departament;
+package com.calidad2018.pcc.department;
 
 import com.calidad2018.pcc.employee.Employee;
 

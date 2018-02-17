@@ -1,7 +1,8 @@
-package com.calidad2018.pcc.departament;
+package com.calidad2018.pcc.department;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DepartamentDAO extends CrudRepository<Department, Long> {
+public interface DepartmentDAO extends CrudRepository<Department, Long> {
 }

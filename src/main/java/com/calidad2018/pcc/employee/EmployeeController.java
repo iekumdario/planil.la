@@ -2,10 +2,9 @@ package com.calidad2018.pcc.employee;
 
 import com.calidad2018.pcc.contract.Contract;
 import com.calidad2018.pcc.contracttype.ContractType;
-import com.calidad2018.pcc.contracttype.ContractTypeDAO;
-import com.calidad2018.pcc.departament.DepartamentDAO;
-import com.calidad2018.pcc.departament.Department;
-import com.calidad2018.pcc.position.PositionDAO;
+import com.calidad2018.pcc.core.EntityService;
+import com.calidad2018.pcc.department.Department;
+import com.calidad2018.pcc.position.Position;
 import com.calidad2018.pcc.utils.Country;
 import com.calidad2018.pcc.utils.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,19 @@ import java.util.Locale;
 public class EmployeeController {
 
     @Autowired
-    private PositionDAO positionRepo;
+    private EntityService<Position> positionRepo;
 
     @Autowired
-    private ContractTypeDAO contractTypeRepo;
+    private EntityService<ContractType> contractTypeRepo;
 
     @Autowired
-    private DepartamentDAO departmentRepo;
+    private EntityService<Department> departmentRepo;
+
+    @Autowired
+    private EntityService<Employee> employeeRepo;
+
+    @Autowired
+    private EntityService<Contract> contractRepo;
 
     @GetMapping("/employee")
     public String employeeForm(Model model) {
@@ -67,6 +72,10 @@ public class EmployeeController {
             model.addAttribute("employee", employee);
 
             System.out.printf(employee.toString());
+
+            contractRepo.save(employee.getContract());
+
+            employeeRepo.save(employee);
 
             return "home/index";
         }
