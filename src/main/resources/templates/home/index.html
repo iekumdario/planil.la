@@ -56,7 +56,7 @@
 
                         </div>
 
-                        <a href="/formulas/add" id="createFormula"
+                        <a href="/employee"
                            class="btn btn-warning mt-0 mx-3 right-element">
                             Añadir Colaborador
                         </a>
@@ -88,12 +88,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Juan</td>
-                                <td>Solis</td>
-                                <td>Permanente</td>
-                                <td>Gerente</td>
-                                <td>Ventas</td>
+                            <tr th:each="employee,iterStat : ${employees}">
+                                <td th:text="${employee.firstName}">Juan</td>
+                                <td th:text="${employee.lastName}">Solis</td>
+                                <td th:text="${employee.contract.contractType.description}">Permanente</td>
+                                <td th:text="${employee.position.name}">Gerente</td>
+                                <td th:text="${employee.department.description}">Ventas</td>
                                 <td>
                                     <div class="d-flex flex-row">
 
