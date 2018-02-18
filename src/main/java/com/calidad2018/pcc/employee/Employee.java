@@ -8,35 +8,45 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Employee {
 
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String lastName;
 
+    @NotNull
     private String idDocument;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date dateOfBirth;
 
+    @NotNull
     private String address;
 
+    @NotNull
     private String countryOfOrigin;
 
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private String phoneNumber;
 
+    @NotNull
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private String mobileNumber;
 
+    @NotNull
     @Email
     private String email;
 
     private String academicDetails;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
 

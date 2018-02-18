@@ -14,10 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 public class EmployeeController {
@@ -49,6 +50,12 @@ public class EmployeeController {
         model.addAttribute("genders", Gender.values());
         model.addAttribute("contractTypes", contractTypeRepo.findAll());
         model.addAttribute("departments", departmentRepo.findAll());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String maxDOB = LocalDateTime.now().minusYears(18).format(formatter);
+        String minDOB = LocalDateTime.now().minusYears(62).format(formatter);
+        model.addAttribute("maxDOB", maxDOB);
+        model.addAttribute("minDOB", minDOB);
+
         List<Country> countries =  new ArrayList<>();
 
         for (String country : Locale.getISOCountries()) {

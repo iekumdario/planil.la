@@ -20,6 +20,10 @@
     font-size: 15px;
 }
 
+.lowercase {
+    text-transform: lowercase;
+}
+
 .card-item-size {
     font-size: 40px;
 }

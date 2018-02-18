@@ -5,6 +5,7 @@ import com.calidad2018.pcc.employee.Employee;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,12 +19,16 @@ public class Contract {
     @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
     private Set<Employee> employees;
 
-    private double baseSalary = 0;
+    @NotNull
+    private double baseSalary;
 
+    @NotNull
     private double hourlyRate = 0;
 
-    private int weeklyHours = 0;
+    @NotNull
+    private int weeklyHours = 40;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date startDate;
 
@@ -77,6 +82,7 @@ public class Contract {
 
     public void setBaseSalary(double baseSalary) {
         this.baseSalary = baseSalary;
+        this.hourlyRate = baseSalary / (weeklyHours*4); //we get the hours for the whole month to get the hourly rate
     }
 
     public double getHourlyRate() {
