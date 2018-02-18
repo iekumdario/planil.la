@@ -22,8 +22,8 @@ dependencies {
     // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile 'org.springframework:spring-orm:4.2.5.RELEASE'
-    compile 'org.hibernate:hibernate-core:5.2.1.Final'
+    compile 'org.springframework:spring-orm:4.3.14.RELEASE'
+    compile 'org.hibernate:hibernate-core:5.2.13.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
     compile 'com.h2database:h2:1.4.191'
 
