@@ -1,10 +1,4 @@
-install_heroku
-if [ $? -eq 0 ]
-then
-	echo "deploying to heroku..."
-	deploy_to_heroku
-fi
-	
+#!/bin/bash
 
 install_heroku () {
 	echo "verifying heroku is installed"
@@ -62,5 +56,12 @@ cleanup () {
 	sed -i '/password/d' ~/.netrc
 	sed -i '/login jdquinterov@gmail.com/d' ~/.netrc
 }
+
+install_heroku
+if [ $? -eq 0 ]
+then
+	echo "deploying to heroku..."
+	deploy_to_heroku
+fi
 
 
