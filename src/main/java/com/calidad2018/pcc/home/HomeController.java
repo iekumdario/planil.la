@@ -16,25 +16,24 @@ public class HomeController {
     private EmployeeServiceImpl employeeService;
 
     @RequestMapping("/")
-       public String home(Model model) {
+    public String home(Model model) {
 
         List<Employee> employeeList = (List<Employee>) employeeService.findAll();
 
-        if(employeeList.size() == 0){
+        if (employeeList.size() == 0) {
+
 
             return "home/noEmployee";
 
 
         }
-        else {
-            return "home/index";
 
+        model.addAttribute("employees", employeeList);
 
-        }
+        return "home/index";
+
 
     }
-
-
 
 
 }

@@ -84,7 +84,7 @@ public class EmployeeController {
 
             employeeRepo.save(employee);
 
-            return "home/index";
+            return "redirect:/";
         }
         return "error";
     }
