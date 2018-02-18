@@ -28,7 +28,7 @@ deploy_to_heroku () {
 	HEROKU_NAME="desolate-earth-62016"
 	set_heroku_login
 	heroku git:remote -a $HEROKU_NAME
-	git push -f heroku master
+	git push heroku HEAD:master
 	
 	if [ $? -eq 0 ]
 	then
@@ -52,6 +52,7 @@ set_heroku_login () {
 }
 
 cleanup () {
+	echo "cleaning up"
 	sed -i '/heroku.com/d' ~/.netrc
 	sed -i '/password/d' ~/.netrc
 	sed -i '/login jdquinterov@gmail.com/d' ~/.netrc
