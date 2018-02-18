@@ -34,7 +34,6 @@ deploy_to_heroku () {
 	then
 		cleanup
 		echo "Deployment sucessful 🚀  https://$HEROKU_NAME.herokuapp.com"
-		exit 0
 	else
 		cleanup
 		echo "Error deploying to heroku"
@@ -56,6 +55,7 @@ cleanup () {
 	sed -i '/heroku.com/d' ~/.netrc
 	sed -i '/password/d' ~/.netrc
 	sed -i '/login jdquinterov@gmail.com/d' ~/.netrc
+	cat ~/.netrc
 }
 
 install_heroku
