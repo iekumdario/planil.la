@@ -7,104 +7,130 @@
 <body class="body-background">
 <div th:include="fragments/navBar :: navbar"></div>
 <!--Main Navigation-->
-<div class="container flex-top">
 
-    <div class="row">
+<main>
 
-        <div class="col-xs-12 col-md-8">
-            <h1>Nuevo colaborador</h1>
-            <form action="#" th:action="@{/employee}" th:object="${employee}" method="post" id="newEmployeeForm">
+    <div class="container flex-top">
 
-                <p>Nombre:
-                    <input type="text" th:field="*{firstName}" required/></p>
+        <div class="card card-cascade">
 
-                <p>Apellido:
-                    <input type="text" th:field="*{lastName}" required/></p>
+            <div class="modal-body">
 
-                <p>Cedula/Pasaporte:
-                    <input type="text" th:field="*{idDocument}" required/></p>
+                <div class="col-md-12 p-3">
 
-                <p>Fecha de nacimiento:
-                    <input type="date" th:field="*{dateOfBirth}" th:attr="max=${maxDOB}, min=${minDOB}" required/></p>
+                    <div class="col-xs-12 col-md-8">
 
-                <p>Sexo:
-                <ul>
-                    <li th:each="gender: ${genders}">
-                        <input type="radio"
-                               th:field="*{gender}"
-                               th:value="${gender}" required/>
-                        <label class="lowercase"
-                                th:for="${#ids.prev('gender')}"
-                                th:text="${gender}"></label>
-                    </li>
-                </ul>
-                </p>
-                <p>Telefono:
-                    <input type="tel" th:field="*{phoneNumber}"/></p>
+                        <h1 class="font-weight-bold">Nuevo Colaborador</h1>
 
-                <p>Celular:
-                    <input type="tel" th:field="*{mobileNumber}" required/></p>
+                        <form action="#" th:action="@{/employee}" th:object="${employee}" method="post" id="newEmployeeForm">
 
-                <p>Correo Electronico:
-                    <input type="email" th:field="*{email}" required/></p>
+                            <h5 class="grey-text mt-4">Datos Personales</h5>
 
-                <p>Direccion:
-                    <textarea rows="4" cols="50" name="address" form="newEmployeeForm" th:field="*{address}" required/>
-                </p>
+                            <p>Nombre:
+                                <input type="text" th:field="*{firstName}" required/></p>
 
-                <p>Informacion Academica:
-                    <textarea rows="4" cols="50" name="academicDetails" form="newEmployeeForm"
-                                               th:field="*{academicDetails}"/></p>
-                <p>Nacionalidad:
-                    <select th:field="*{countryOfOrigin}" required>
-                        <option value="">Seleccione una opción</option>
-                        <option th:each="country: ${countries}" th:value="${country.iso3}" th:text="${country.name}" />
-                    </select></p>
-                <p>Area:
-                    <select th:field="*{department}" required>
-                        <option value="">Seleccione una opción</option>
-                        <option th:each="department: ${departments}" th:value="${department.id}"
-                                th:text="${department.description}"/>
-                    </select></p>
-                <p>Cargo:
-                    <select th:field="*{position}" required>
-                        <option value="">Seleccione una opción</option>
-                        <option th:each="availablePosition: ${availablePositions}" th:value="${availablePosition.id}"
-                                th:text="${availablePosition.name}"/>
-                    </select></p>
+                            <p>Apellido:
+                                <input type="text" th:field="*{lastName}" required/></p>
+
+                            <p>Cedula/Pasaporte:
+                                <input type="text" th:field="*{idDocument}" required/></p>
+
+                            <p class="col-sm-5 px-0">Fecha de nacimiento:
+                                <input type="date" th:field="*{dateOfBirth}" th:attr="max=${maxDOB}, min=${minDOB}" required/></p>
+                            <p>Sexo:
+                            <ul>
+                                <li th:each="gender: ${genders}">
+                                    <input type="radio"
+                                           th:field="*{gender}"
+                                           th:value="${gender}" required/>
+                                    <label class="lowercase"
+                                           th:for="${#ids.prev('gender')}"
+                                           th:text="${gender}"></label>
+                                </li>
+                            </ul>
+                            </p>
+
+                            <p>Nacionalidad:
+                                <select th:field="*{countryOfOrigin}" required>
+                                    <option value="">Seleccione una opción</option>
+                                    <option th:each="country: ${countries}" th:value="${country.iso3}" th:text="${country.name}" />
+                                </select></p>
+
+                            <h5 class="grey-text mt-5">Contacto</h5>
+
+                            <p>Telefono:
+                                <input type="tel" th:field="*{phoneNumber}"/></p>
+
+                            <p>Celular:
+                                <input type="tel" th:field="*{mobileNumber}" required/></p>
+
+                            <p>Correo Electronico:
+                                <input type="email" th:field="*{email}" required/></p>
+
+                            <p>Direccion:
+                                <textarea rows="4" cols="50" name="address" form="newEmployeeForm" th:field="*{address}" required/>
+                            </p>
+
+                            <p>Informacion Academica:
+                                <textarea rows="4" cols="50" name="academicDetails" form="newEmployeeForm"
+                                          th:field="*{academicDetails}"/></p>
 
 
-                <h2>Contrato:</h2>
+                            <h2 class="font-weight-bold">Contrato:</h2>
 
-                <p>Salario Bruto
-                    <input type="number" th:field="*{contract.baseSalary}" required/></p>
+                            <p >Tipo de colaborador:
+                                <select th:field="*{contract.contractType.id}" onchange="checkTemporaryEmployee(this.value)" required>
+                                    <option value="">Seleccione una opción</option>
+                                    <option th:each="contractType: ${contractTypes}" th:value="${contractType.id}"
+                                            th:text="${contractType.description}"/>
+                                </select></p>
 
-                <p>Horas Semanales
-                    <input type="number" th:field="*{contract.weeklyHours}" value="40" required/></p>
+                            <p>Area:
+                                <select th:field="*{department}" required>
+                                    <option value="">Seleccione una opción</option>
+                                    <option th:each="department: ${departments}" th:value="${department.id}"
+                                            th:text="${department.description}"/>
+                                </select></p>
+                            <p>Cargo:
+                                <select th:field="*{position}" required>
+                                    <option value="">Seleccione una opción</option>
+                                    <option th:each="availablePosition: ${availablePositions}" th:value="${availablePosition.id}"
+                                            th:text="${availablePosition.name}"/>
+                                </select></p>
 
-                <p>Fecha de inicio:
-                    <input type="date" th:field="*{contract.startDate}" required/></p>
+                            <p class="col-sm-4 px-0">Salario Bruto
+                                <input type="number" th:field="*{contract.baseSalary}" required/></p>
 
-                <p>Tipo de colaborador:
-                    <select th:field="*{contract.contractType.id}" onchange="checkTemporaryEmployee(this.value)" required>
-                        <option value="">Seleccione una opción</option>
-                        <option th:each="contractType: ${contractTypes}" th:value="${contractType.id}"
-                                th:text="${contractType.description}"/>
-                    </select></p>
+                            <p class="col-sm-4 px-0">Horas Semanales
+                                <input type="number" th:field="*{contract.weeklyHours}" value="40" required/></p>
 
-                <p>Fecha fin:
-                    <input type="date" th:field="*{contract.endDate}"/></p>
+                            <p class="col-sm-5 px-0">Fecha de inicio:
+                                <input type="date" th:field="*{contract.startDate}" required/></p>
 
-                <p>
-                    <input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 
-            </form>
+
+                            <p class="col-sm-5 px-0">Fecha fin:
+                                <input type="date" th:field="*{contract.endDate}"/></p>
+
+                            <p>
+                                <input class="btn btn-warning" type="submit" value="Crear Empleado"/>
+
+                                <input class="btn btn-grey" type="reset" value="Reset"/></p>
+
+                                <a class="btn btn-grey" href="/">Salir</a>
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-
 
     </div>
 
-</div>
+</main>
+
 <th:block th:include="fragments/scripts :: scripts"/>
 
 </body>
