@@ -1,4 +1,5 @@
 package com.calidad2018.pcc.employee;
+import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
 import com.calidad2018.pcc.position.Position;
 import com.calidad2018.pcc.contract.Contract;
 import com.calidad2018.pcc.department.Department;
@@ -10,6 +11,7 @@ import org.springframework.format.annotation.NumberFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Employee {
@@ -65,6 +67,9 @@ public class Employee {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<PayrollEmployee> payrollEmployee;
 
     public Employee() {
     }
@@ -209,5 +214,13 @@ public class Employee {
                 ", department=" + department +
                 ", id=" + id +
                 '}';
+    }
+
+    public Set<PayrollEmployee> getPayrollEmployee() {
+        return payrollEmployee;
+    }
+
+    public void setPayrollEmployee(Set<PayrollEmployee> payrollEmployee) {
+        this.payrollEmployee = payrollEmployee;
     }
 }
