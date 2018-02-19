@@ -47,3 +47,7 @@ $('#password').blur(function(event) {
     }
 });
 
+
+.w-auto {
+    width: auto;
+}

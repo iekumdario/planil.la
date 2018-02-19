@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+
+    <title>Planilla</title>
+
+</head>
+
+<body class="body-background">
+
+<div th:include="fragments/navBar :: navbar"></div>
+
+
+<!--Main Navigation-->
+<main>
+
+    <div class="container flex-top">
+
+        <div class="card card-cascade">
+
+            <div class="modal-body">
+
+                <div class="col-md-12 p-3">
+
+                    <div>
+
+
+                        <div class="d-inline">
+
+                            <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Planilla de Eneroxxx</h2>
+
+                        </div>
+
+                        <a href="/employee"
+                           class="btn btn-warning mt-0 mx-3 right-element">
+                            Pagar Planillaccccc
+                        </a>
+
+                    </div>
+
+                    <div>
+                        <p class="mb-0">Departamento de recursos humanos  planilla</p>
+                        <p class="mb-0">Pago de Planilla de 1era Quincena</p>
+                        <p class="mb-0">Fecha actual: 26 mar 2017</p>
+
+                    </div>
+
+                    <div class="mt-5">
+
+                        <form class="form-inline">
+
+                            <p class="col-sm-3 px-0">Fecha Inicial:
+                                <input type="date"  required/></p>
+                            <p class="col-sm-3 px-3">Fecha Final:
+                                <input type="date"  required/></p>
+
+                            <p class="col-sm-3 px-3">Fecha de Pago:
+                                <input type="date" required/></p>
+
+
+                            <button class="btn btn-warning btn-sm my-0" type="submit">Calcular Planilla</button>
+
+                        </form>
+
+                    </div>
+
+
+                    <div class="mt-2 table-ceter col-md-12 px-0">
+
+                        <table id="formulasList" class="table table-sm table-responsive">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>#Colaborador</th>
+                                <th>Cédula</th>
+                                <th>Tipo</th>
+                                <th>Cargo</th>
+                                <th>Ultimo pago</th>
+                                <th>Horas expectativa</th>
+                                <th>Horas reales</th>
+                                <th>Salario Bruto</th>
+                                <th>Total Ingresos</th>
+                                <th>Seguro Social</th>
+                                <th>Seguro Educativo</th>
+                                <th>ISR</th>
+                                <th>Total Egreso</th>
+                                <th>Salario Neto</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr >
+                                <td class="block" >Juan Solis</td>
+                                <td class="block">1</td>
+                                <td class="block">8-888-8888</td>
+                                <td class="block">Permanente</td>
+                                <td class="block">Gerente</td>
+                                <td>21 mar 2018</td>
+                                <td>48</td>
+                                <td>48</td>
+                                <td>1,500.00</td>
+                                <td>1,500.00</td>
+                                <td>100,00</td>
+                                <td>5,00</td>
+                                <td>10,00</td>
+                                <td>115,00</td>
+                                <td>1,375,00</td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div th:include="fragments/navBar :: botonNavbar"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<!--/Main Navigation-->
+
+<th:block th:include="fragments/scripts :: scripts"/>
+
+</body>
+</html>
