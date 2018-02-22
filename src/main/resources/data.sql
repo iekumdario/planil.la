@@ -20,3 +20,9 @@ INSERT INTO Position (`id`, `description`, `name`) VALUES (3, "Encargado de las 
 INSERT INTO Position (`id`, `description`, `name`) VALUES (4, "Encargado de la ejecucion de la metodologia scrum en el equipo de desarrollo", "Scrum Master");
 INSERT INTO Position (`id`, `description`, `name`) VALUES (5, "Encargado de el seguimiento y cumplimiento de proyectos", "Project Manager");
 INSERT INTO Position (`id`, `description`, `name`) VALUES (6, "Adquisicion de talento y recurso humano", "Recursos Humanos");
+
+
+-- dummy employees and contracts
+INSERT INTO `Contract` VALUES (1,13123,NULL,82.01875,'2018-01-22 00:02:00',40,1,NULL),(2,123123,'2018-01-18 00:04:00',769.51875,'2018-01-02 00:02:00',40,2,NULL),(3,123,NULL,0.76875,'2018-01-25 00:04:00',123,1,NULL);
+
+INSERT INTO `Employee` VALUES (1,'','panama','BHR','1993-01-05 00:01:00','juanperez@hola.com','juan','MASCULINO','123','perez','123','123',1,3,3),(2,'','test','ASM','2000-01-09 00:02:00','test@test.com','test','MASCULINO','123','test','123','123',2,1,1),(3,'123','123','BWA','2000-01-05 00:02:00','123@123.com','123','FEMENINO','123','123','123','123',3,2,4);

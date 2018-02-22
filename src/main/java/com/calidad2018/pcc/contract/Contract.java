@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 public class Contract {
@@ -16,8 +15,8 @@ public class Contract {
     @JoinColumn(name = "contract_type_id")
     private ContractType contractType;
 
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
-    private Set<Employee> employees;
+    @OneToOne
+    private Employee employee;
 
     @NotNull
     private double baseSalary;
@@ -36,7 +35,7 @@ public class Contract {
     private Date endDate;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     public Contract() {
@@ -101,12 +100,12 @@ public class Contract {
         this.id = id;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public void setEmployee(Employee employees) {
+        this.employee = employees;
     }
 
 }

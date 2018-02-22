@@ -8,6 +8,12 @@ function checkTemporaryEmployee(contractType){
     }
 }
 
+function deleteEmployee(formId){
+    var modalElement = $('#confirmDeleteModal');
+    modalElement.find('#confirmDeleteButton').first().attr('onclick', 'document.getElementById(\''+formId+'\').submit();');
+    modalElement.modal();
+}
+
 // Tooltips Initialization
 $('#username').blur(function(event) {
     event.target.checkValidity();
@@ -47,7 +53,7 @@ $('#password').blur(function(event) {
     }
 });
 
-
-.w-auto {
-    width: auto;
-}
+// Que hacia esto aqui?
+// .w-auto {
+//     width: auto;
+// }

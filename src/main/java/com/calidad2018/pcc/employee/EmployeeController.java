@@ -11,16 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
+@RequestMapping("/employee")
 public class EmployeeController {
 
     @Autowired
@@ -38,14 +36,55 @@ public class EmployeeController {
     @Autowired
     private EntityService<Contract> contractRepo;
 
-    @GetMapping("/employee")
-    public String employeeForm(Model model) {
+    @GetMapping(value = "/{userId}")
+    public String updateForm(Model model, @PathVariable Long userId) {
+        Employee employee = employeeRepo.findById(userId);
+        model.addAttribute("employee", employee);
+        model.addAttribute("isNew",false);
+        setupFormModel(model);
+
+        return "employee/form";
+    }
+
+
+    @GetMapping
+    public String newForm(Model model) {
         Employee newEmployee = new Employee();
         Contract newContract = new Contract();
         newContract.setContractType(new ContractType());
         newEmployee.setContract(newContract);
         newEmployee.setDepartment(new Department());
         model.addAttribute("employee", newEmployee);
+        model.addAttribute("isNew",true);
+        setupFormModel(model);
+
+        return "employee/form";
+    }
+
+    @PostMapping
+    public String upsert(@ModelAttribute Employee employee, Model model, BindingResult bindingResult) {
+
+        if(!bindingResult.hasErrors()){
+            model.addAttribute("employee", employee);
+            System.out.printf(employee.toString());
+            contractRepo.save(employee.getContract());
+            employeeRepo.save(employee);
+
+            return "redirect:/";
+        }
+        return "error";
+    }
+
+    @DeleteMapping(value = "/{userId}")
+    public String delete(@PathVariable Long userId) {
+        try{
+            employeeRepo.delete(userId);
+            return "redirect:/";
+        }catch(Exception e){
+            return "error";
+        }
+    }
+    private void setupFormModel(Model model){
         model.addAttribute("availablePositions", positionRepo.findAll());
         model.addAttribute("genders", Gender.values());
         model.addAttribute("contractTypes", contractTypeRepo.findAll());
@@ -64,28 +103,6 @@ public class EmployeeController {
         }
 
         countries.sort(Comparator.comparing(Country::getName));
-
         model.addAttribute("countries",countries.toArray());
-
-        return "employee/new";
-    }
-
-    @PostMapping("/employee")
-    public String employeeSubmit(@ModelAttribute Employee employee, Model model, BindingResult bindingResult) {
-
-        if(!bindingResult.hasErrors()){
-
-
-            model.addAttribute("employee", employee);
-
-            System.out.printf(employee.toString());
-
-            contractRepo.save(employee.getContract());
-
-            employeeRepo.save(employee);
-
-            return "redirect:/";
-        }
-        return "error";
     }
 }

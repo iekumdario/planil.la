@@ -56,7 +56,7 @@ public class Employee {
     @JoinColumn(name = "position_id")
     private Position position;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "contract_id")
     private Contract contract;
 
@@ -65,7 +65,7 @@ public class Employee {
     private Department department;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
