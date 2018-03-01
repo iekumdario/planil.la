@@ -84,6 +84,7 @@ public class EmployeeController {
             return "error";
         }
     }
+
     private void setupFormModel(Model model){
         model.addAttribute("availablePositions", positionRepo.findAll());
         model.addAttribute("genders", Gender.values());
