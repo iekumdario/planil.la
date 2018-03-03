@@ -31,7 +31,7 @@ public class EmployeeController {
     private EntityService<Department> departmentRepo;
 
     @Autowired
-    private EntityService<Employee> employeeRepo;
+    private EmployeeService<Employee> employeeRepo;
 
     @Autowired
     private EntityService<Contract> contractRepo;

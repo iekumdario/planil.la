@@ -75,39 +75,24 @@
                                 <th>Nombre</th>
                                 <th>#Colaborador</th>
                                 <th>Cédula</th>
-                                <th>Tipo</th>
-                                <th>Cargo</th>
-                                <th>Ultimopago</th>
-                                <th>Horasexpectativa</th>
-                                <th>Horasreales</th>
                                 <th>SalarioBruto</th>
-                                <th>TotalIngresos</th>
                                 <th>SeguroSocial</th>
                                 <th>SeguroEducativo</th>
                                 <th>ISR</th>
-                                <th>TotalEgreso</th>
                                 <th>SalarioNeto</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr >
-                                <td class="block" >Juan Solis</td>
-                                <td class="block">1</td>
-                                <td class="block">8-888-8888</td>
-                                <td class="block">Permanente</td>
-                                <td class="block">Gerente</td>
-                                <td class="block">21 mar 2018</td>
-                                <td class="block">48</td>
-                                <td class="block">48</td>
-                                <td class="block">1,500.00</td>
-                                <td class="block">1,500.00</td>
-                                <td class="block">100,00</td>
-                                <td class="block">5,00</td>
-                                <td class="block">10,00</td>
-                                <td class="block">115,00</td>
-                                <td class="block">1,375,00</td>
-
+                            <tr th:each="employee,iterStat : ${employees}" >
+                                <td th:text="${employee.employee.firstName}" class="block" >Juan Solis</td>
+                                <td th:text="${employee.employee.id}" class="block">1</td>
+                                <td th:text="${employee.employee.idDocument}" class="block">8-888-8888</td>
+                                <td th:text="${employee.grossSalary}" class="block">1,500.00</td>
+                                <td th:text="${employee.taxes.socialSecurityTax}" class="block">1,500.00</td>
+                                <td th:text="${employee.taxes.educationTax}" class="block">100,00</td>
+                                <td th:text="${employee.taxes.rentTax}" class="block">5,00</td>
+                                <td th:text="${employee.netSalary}" class="block">115,00</td>
                             </tr>
 
                             </tbody>

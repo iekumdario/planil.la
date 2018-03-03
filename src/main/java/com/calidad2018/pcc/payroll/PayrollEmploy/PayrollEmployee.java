@@ -4,11 +4,15 @@ import com.calidad2018.pcc.core.BaseEntityId;
 import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
 import com.calidad2018.pcc.payroll.Payroll;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 @Entity(name = "payrollemployee")
 public class PayrollEmployee  extends BaseEntityId{

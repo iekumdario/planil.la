@@ -4,6 +4,8 @@ import com.calidad2018.pcc.position.Position;
 import com.calidad2018.pcc.contract.Contract;
 import com.calidad2018.pcc.department.Department;
 import com.calidad2018.pcc.utils.Gender;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -12,6 +14,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
+
+
 
 @Entity() // This tells Hibernate to make a table out of this class
 public class Employee {
@@ -74,12 +78,20 @@ public class Employee {
     public Employee() {
     }
 
-    public String getAddress() {
-        return address;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getIdDocument() {
@@ -96,6 +108,14 @@ public class Employee {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCountryOfOrigin() {
@@ -138,30 +158,13 @@ public class Employee {
         this.academicDetails = academicDetails;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public Position getPosition() {
         return position;
@@ -187,33 +190,12 @@ public class Employee {
         this.department = department;
     }
 
-    public Gender getGender() {
-        return gender;
+    public Long getId() {
+        return id;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", idDocument='" + idDocument + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", address='" + address + '\'' +
-                ", countryOfOrigin='" + countryOfOrigin + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", academicDetails='" + academicDetails + '\'' +
-                ", gender=" + gender +
-                ", position=" + position +
-                ", contract=" + contract +
-                ", department=" + department +
-                ", id=" + id +
-                '}';
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Set<PayrollEmployee> getPayrollEmployee() {

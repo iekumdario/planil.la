@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @Controller
 public class HomeController {
 
@@ -21,7 +19,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model, Pageable pageable) {
 
-        Page<Employee> employeeList = employeeService.findAll(Constants.PERMANENTE,pageable);
+        Page<Employee> employeeList = employeeService.findByContract(Constants.PERMANENTE,pageable);
 
         System.out.println(employeeList);
 
@@ -43,7 +41,7 @@ public class HomeController {
     @RequestMapping("/temporary-employee")
     public String temporalEmployyee(Model model, Pageable pageable) {
 
-        Page<Employee> employeeList = employeeService.findAll(Constants.TEMPORAL,pageable);
+        Page<Employee> employeeList = employeeService.findByContract(Constants.TEMPORAL,pageable);
 
         System.out.println(employeeList);
 

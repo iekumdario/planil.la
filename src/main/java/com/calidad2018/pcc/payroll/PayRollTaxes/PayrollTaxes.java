@@ -1,12 +1,14 @@
 package com.calidad2018.pcc.payroll.PayRollTaxes;
 
 import com.calidad2018.pcc.core.BaseEntityId;
-import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
-import org.omg.PortableInterceptor.SUCCESSFUL;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+
+
 
 @Entity(name = "payrollTaxes")
 public class PayrollTaxes extends BaseEntityId{

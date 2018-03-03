@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
-public class EmployeeServiceImpl implements EntityService<Employee> {
+public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
     @Autowired
     private EmployeeDAO dao;
@@ -37,9 +39,16 @@ public class EmployeeServiceImpl implements EntityService<Employee> {
     }
 
 
-    public Page<Employee> findAll(String type,org.springframework.data.domain.Pageable pageable) {
+    public Page<Employee> findByContract(String type, org.springframework.data.domain.Pageable pageable) {
 
         return dao.findByContractContratType(type,pageable);
+
+    }
+
+    @Override
+    public List<Employee> findByContractType(String type) {
+
+        return dao.findByContractContratType(type);
 
     }
 }
