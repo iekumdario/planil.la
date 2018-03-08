@@ -29,21 +29,21 @@
 
                         <div class="d-inline">
 
-                            <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Planilla de Eneroxxx</h2>
+                            <h2 id="name" th:text="'Planilla de ' + ${currentMonth}" class="mr-0 mb-0 font-weight-bold d-inline"></h2>
 
                         </div>
 
                         <a href="/employee"
                            class="btn btn-warning mt-0 mx-3 right-element">
-                            Pagar Planillaccccc
+                            Pagar Planilla
                         </a>
 
                     </div>
 
                     <div>
                         <p class="mb-0">Departamento de recursos humanos  planilla</p>
-                        <p class="mb-0">Pago de Planilla de 1era Quincena</p>
-                        <p class="mb-0">Fecha actual: 26 mar 2017</p>
+                        <p class="mb-0" th:text="'Pago de Planilla de ' + ${payrollTerm} + ' Quincena'"></p>
+                        <p class="mb-0" th:text="'Fecha actual: ' + ${currentDate}"></p>
 
                     </div>
 

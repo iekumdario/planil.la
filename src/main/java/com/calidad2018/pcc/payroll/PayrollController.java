@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class PayrollController {
@@ -23,9 +26,6 @@ public class PayrollController {
 
     @Autowired
     private Taxes taxes;
-
-
-
 
     @GetMapping("/payroll")
     public String employeeForm(Model model) {
@@ -59,6 +59,17 @@ public class PayrollController {
         });
 
         model.addAttribute("employees", payrollEmployees);
+
+
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM", new Locale("es", "ES"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String currentDate = LocalDateTime.now().format(formatter);
+        String currentMonth = LocalDateTime.now().format(monthFormatter);
+        String payrollTerm = LocalDateTime.now().getDayOfMonth() > 15 ? "2da" : "1era";
+
+        model.addAttribute("currentMonth", currentMonth);
+        model.addAttribute("payrollTerm", payrollTerm);
+        model.addAttribute("currentDate", currentDate);
 
         return "payroll/index";
     }
