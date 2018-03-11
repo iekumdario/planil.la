@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/payroll")
 public class PayrollController {
 
     @Autowired
@@ -27,40 +30,54 @@ public class PayrollController {
     @Autowired
     private Taxes taxes;
 
-    @GetMapping("/payroll")
-    public String employeeForm(Model model) {
+    @GetMapping
+    public String getFullPayroll(Model model) {
 
         List<Employee> employees = employeeServices.findByContractType(Constants.PERMANENTE);
 
         List<PayrollEmployee> payrollEmployees = new ArrayList<>();
 
         employees.forEach(employee -> {
-
-
-            double grossSalaryPerPayroll = Round.Round(employee.getContract().getBaseSalary()/2);
-
-            PayrollTaxes employeeTaxes = this.taxes.payrollTaxes(grossSalaryPerPayroll);
-
-            double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax());
-
-
-            PayrollEmployee  builder = new PayrollEmployee();
-
-            builder.setEmployee(employee);
-            builder.setGrossSalary(grossSalaryPerPayroll);
-            builder.setTaxes(employeeTaxes);
-            builder.setNetSalary(netSalary);
-
+            PayrollEmployee builder = getPayroll(employee);
             payrollEmployees.add(builder);
-
-
-
-
         });
 
         model.addAttribute("employees", payrollEmployees);
+        setPayrollDateModel(model);
 
+        return "payroll/index";
+    }
 
+    @GetMapping(value = "/{employeeId}")
+    public String getEmployeePayroll(Model model, @PathVariable Long employeeId) {
+        Employee employee = employeeServices.findById(employeeId);
+        PayrollEmployee employeePayroll = getPayroll(employee);
+
+        model.addAttribute("employee", employeePayroll);
+        // calculando aparte en caso de que se hagan las deducciones personales
+        double totalDeductions = employeePayroll.getGrossSalary() - employeePayroll.getNetSalary();
+        model.addAttribute("totalDeductions", totalDeductions);
+        setPayrollDateModel(model);
+
+        return "payroll/employee";
+    }
+
+    private PayrollEmployee getPayroll(Employee employee) {
+        PayrollEmployee builder = new PayrollEmployee();
+
+        double grossSalaryPerPayroll = Round.Round(employee.getContract().getBaseSalary() / 2);
+        PayrollTaxes employeeTaxes = this.taxes.payrollTaxes(grossSalaryPerPayroll);
+        double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax());
+
+        builder.setEmployee(employee);
+        builder.setGrossSalary(grossSalaryPerPayroll);
+        builder.setTaxes(employeeTaxes);
+        builder.setNetSalary(netSalary);
+
+        return builder;
+    }
+
+    private void setPayrollDateModel(Model model) {
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM", new Locale("es", "ES"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String currentDate = LocalDateTime.now().format(formatter);
@@ -70,8 +87,6 @@ public class PayrollController {
         model.addAttribute("currentMonth", currentMonth);
         model.addAttribute("payrollTerm", payrollTerm);
         model.addAttribute("currentDate", currentDate);
-
-        return "payroll/index";
     }
 
 

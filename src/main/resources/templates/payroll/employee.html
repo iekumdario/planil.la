@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+    <title>Planilla | Empleado</title>
+</head>
+<body class="body-background">
+<div th:include="fragments/navBar :: navbar"></div>
+<!--Main Navigation-->
+<main>
+    <div class="container flex-top">
+        <div class="card card-cascade">
+            <div class="modal-body">
+                <div class="col-md-12 p-3">
+                    <div>
+                        <div class="d-inline">
+                            <h2 id="name" th:text="'Calculo de planilla de ' + ${employee.employee.firstName} + ' '+ ${employee.employee.lastName}"
+                                class="mr-0 mb-0 font-weight-bold d-inline"></h2>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div>
+                        <p class="mb-0">Departamento de recursos humanos - Planilla</p>
+                        <p class="mb-0" th:text="'Pago de Planilla de ' + ${payrollTerm} + ' Quincena' + ' ('+${currentMonth}+')'"></p>
+                        <p class="mb-0" th:text="'Tipo: ' + Planilla"></p>
+                        <p class="mb-0" th:text="'Fecha actual: ' + ${currentDate}"></p>
+                    </div>
+                    <br><br>
+                    <h3>Detalles Personales</h3>
+                    <div class="mt-2 col-md-12 px-0 table-responsive">
+                        <table class="table table-sm table-fixed">
+                            <thead>
+                            <tr>
+                                <th>#Colaborador</th>
+                                <th>Nombre Completo</th>
+                                <th>Cédula</th>
+                                <th>Tipo de colaborador</th>
+                                <th>Cargo del colaborador</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${employee.employee.id}" class="block">1</td>
+                                <td th:text="${employee.employee.firstName} + ' ' + ${employee.employee.lastName}" class="block">Juan Solis</td>
+                                <td th:text="${employee.employee.idDocument}" class="block">8-888-8888</td>
+                                <td th:text="${employee.employee.contract.contractType.description}" class="block">Permanente</td>
+                                <td th:text="${employee.employee.position.name}" class="block">Ingeniero de software</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <h3>Pagos</h3>
+                    <div class="mt-2 col-md-12 px-0 table-responsive">
+                        <table class="table table-sm table-fixed">
+                            <thead>
+                            <tr>
+                                <th>Ultima fecha de pago</th>
+                                <th>Expectativa de horas trabajadas</th>
+                                <th>Horas Trabajadas</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="block">No existe</td>
+                                <td th:text="${employee.employee.contract.weeklyHours*2}" class="block">80</td>
+                                <td th:text="${employee.employee.contract.weeklyHours*2}" class="block">80</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <h3>Ingresos</h3>
+                    <div th:switch="${employee.employee.contract.contractType.id}">
+                        <div th:case="1">
+                            <div class="mt-2 col-md-12 px-0 table-responsive">
+                                <!--Permanent-->
+                                <table class="table table-sm table-fixed">
+                                    <tbody>
+                                    <tr>
+                                        <th>Pago correspondiente a la quincena</th>
+                                        <td th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-2 col-md-4 px-0 table-responsive pull-right">
+                                <table class="table table-sm table-fixed">
+                                    <tbody>
+                                    <tr>
+                                        <th><b>Total de ingresos</b></th>
+                                        <td th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Temporal-->
+                        <div th:case="2">
+                            <div class="mt-2 col-md-12 px-0 table-responsive">
+                                <table class="table table-sm table-fixed">
+                                    <tbody>
+                                    <tr>
+                                        <th>Tasa de pago de horas regulares</th>
+                                        <td th:text="'$' + ${#numbers.formatDecimal(employee.employee.contract.hourlyRate, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pago correspondiente a horas trabajadas</th>
+                                        <td th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-2 col-md-4 px-0 table-responsive pull-right">
+                                <table class="table table-sm table-fixed">
+                                    <tbody>
+                                    <tr>
+                                        <th><b>Total de ingresos</b></th>
+                                        <th th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h3>Egresos</h3>
+                    <div class="mt-2 col-md-12 px-0 table-responsive">
+                        <table class="table table-sm table-fixed">
+                            <tbody>
+                            <tr>
+                                <th>Impuesto sobre la renta</th>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.rentTax, 1, 'COMMA', 2, 'POINT')}" class="block sum">5,00</td>
+                            </tr>
+                            <tr>
+                                <th>Seguro Social</th>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.socialSecurityTax, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</td>
+                            </tr>
+                            <tr>
+                                <th>Seguro Educativo</th>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.educationTax, 1, 'COMMA', 2, 'POINT')}" class="block sum">100,00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-2 col-md-4 px-0 table-responsive pull-right">
+                        <table class="table table-sm table-fixed">
+                            <tbody>
+                            <tr>
+                                <th class="block"><b>Total de egresos:</b></th>
+                                <th th:text="'$' + ${#numbers.formatDecimal(totalDeductions, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <h3>Resumen</h3>
+                    <div class="mt-2 col-md-12 px-0 table-responsive">
+                        <table class="table table-sm table-fixed">
+                            <tbody>
+                            <tr>
+                                <td class="block">Salario Bruto:</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</td>
+                            </tr>
+                            <tr>
+                                <td class="block">Deducciones:</td>
+                                <td th:text="'- $' + ${#numbers.formatDecimal(totalDeductions, 1, 'COMMA', 2, 'POINT')}" class="block negative sum">1,500.00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-2 col-md-4 px-0 table-responsive pull-right">
+                        <table class="table table-sm table-fixed">
+                            <tbody>
+                            <tr>
+                                <th class="block"><b>Salario Neto:</b></th>
+                                <th th:text="'$' + ${#numbers.formatDecimal(employee.netSalary, 1, 'COMMA', 2, 'POINT')}" class="block sum">1,500.00</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:include="fragments/navBar :: botonNavbar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--/Main Navigation-->
+<th:block th:include="fragments/scripts :: scripts"/>
+</body>
+</html>
