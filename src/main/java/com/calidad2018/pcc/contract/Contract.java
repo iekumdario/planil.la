@@ -1,6 +1,6 @@
 package com.calidad2018.pcc.contract;
 
-import com.calidad2018.pcc.contracttype.ContractType;
+import com.calidad2018.pcc.contractType.ContractType;
 import com.calidad2018.pcc.employee.Employee;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -1,4 +1,4 @@
-package com.calidad2018.pcc.contracttype;
+package com.calidad2018.pcc.contractType;
 
 import com.calidad2018.pcc.contract.Contract;
 

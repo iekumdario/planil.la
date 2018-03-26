@@ -1,7 +1,7 @@
 package com.calidad2018.pcc.employee;
 
 import com.calidad2018.pcc.contract.Contract;
-import com.calidad2018.pcc.contracttype.ContractType;
+import com.calidad2018.pcc.contractType.ContractType;
 import com.calidad2018.pcc.core.EntityService;
 import com.calidad2018.pcc.department.Department;
 import com.calidad2018.pcc.position.Position;

@@ -1,6 +1,5 @@
-package com.calidad2018.pcc.contracttype;
+package com.calidad2018.pcc.contractType;
 
-import com.calidad2018.pcc.contracttype.ContractTypeDAO;
 import com.calidad2018.pcc.core.EntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

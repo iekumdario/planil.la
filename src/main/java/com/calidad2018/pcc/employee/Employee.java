@@ -60,7 +60,7 @@ public class Employee {
     @JoinColumn(name = "position_id")
     private Position position;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contract_id")
     private Contract contract;
 
