@@ -55,7 +55,7 @@ public class HomeController {
 
         model.addAttribute("employees", employeeList.getContent());
 
-        return "home/temporalyEmployee";
+        return "home/temporaryEmployee";
 
 
     }
