@@ -4,21 +4,18 @@ import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.employee.EmployeeService;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
 import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
-import com.calidad2018.pcc.payroll.taxes.Taxes;
+import com.calidad2018.pcc.payroll.taxesFactory.Taxes;
 import com.calidad2018.pcc.utils.Constants;
 import com.calidad2018.pcc.utils.Round;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 @RequestMapping("/payroll")
@@ -28,24 +25,61 @@ public class PayrollController {
     private EmployeeService<Employee> employeeServices;
 
     @Autowired
+    private PayrollServiceImpl payrollService;
+
+
+    @Autowired
     private Taxes taxes;
 
-    @GetMapping
+    @GetMapping(value = "/create")
     public String getFullPayroll(Model model) {
 
         List<Employee> employees = employeeServices.findByContractType(Constants.PERMANENTE);
 
         List<PayrollEmployee> payrollEmployees = new ArrayList<>();
 
+        Payroll payroll = new Payroll();
+
         employees.forEach(employee -> {
-            PayrollEmployee builder = getPayroll(employee);
+            PayrollEmployee builder = getPayroll(employee,payroll);
             payrollEmployees.add(builder);
         });
 
         model.addAttribute("employees", payrollEmployees);
+
         setPayrollDateModel(model);
 
-        return "payroll/index";
+        createAndSavePayroll(model, payrollEmployees, payroll);
+
+        model.addAttribute("payroll", payroll);
+
+
+        return "payroll/create";
+    }
+
+    private void createAndSavePayroll(Model model, List<PayrollEmployee> payrollEmployees, Payroll payroll) {
+        Set<PayrollEmployee> set = new HashSet<PayrollEmployee>(payrollEmployees);
+
+        System.out.println("Set values .....");
+        for (PayrollEmployee temp : set){
+            System.out.println(temp.getEmployee().getFirstName());
+        }
+
+        Calendar calendar = Calendar.getInstance();
+
+        payroll.setName(model.asMap().get("payrollTerm").toString() + " " + model.asMap().get("currentMonth"));
+
+        payroll.setEndDate(calendar.getTime());
+
+        payroll.setPayDate(calendar.getTime());
+
+        payroll.setStartDate(calendar.getTime());
+
+        payroll.setEmployees(set);
+
+        payroll.setState(false);
+
+        payrollService.save(payroll);
     }
 
     @GetMapping(value = "/{employeeId}")
@@ -59,6 +93,30 @@ public class PayrollController {
         getEmployeePayrollByTerm(model, employeeId);
         return "payroll/employeeVacations";
     }
+
+    @PostMapping(value = "/{payrollId}")
+    public String upsert(@ModelAttribute Employee employee, @PathVariable Long payrollId,Model model, BindingResult bindingResult) {
+
+        Payroll payroll = payrollService.findById(payrollId);
+
+        payroll.setState(true);
+
+        payrollService.save(payroll);
+
+        return "redirect:/payroll";
+    }
+
+    @GetMapping
+    public String allPayroll(Model model) {
+
+        List<Payroll> payrolls = (List<Payroll>) payrollService.findByState(true);
+
+        model.addAttribute("payrolls", payrolls);
+
+        return "payroll/index";
+    }
+
+
 
     // este metodo llamaria con diferentes parametros a employeePayroll dependiendo del termino del pago(quincena, decimo o vacaciones)
     private void getEmployeePayrollByTerm(Model model, @PathVariable Long employeeId) {
@@ -78,12 +136,33 @@ public class PayrollController {
 
         double grossSalaryPerPayroll = Round.Round(employee.getContract().getBaseSalary() / 2);
         PayrollTaxes employeeTaxes = this.taxes.payrollTaxes(grossSalaryPerPayroll);
+
+        employeeTaxes.setEmployee(builder);
         double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax());
 
         builder.setEmployee(employee);
         builder.setGrossSalary(grossSalaryPerPayroll);
         builder.setTaxes(employeeTaxes);
         builder.setNetSalary(netSalary);
+
+        return builder;
+    }
+
+
+    private PayrollEmployee getPayroll(Employee employee,Payroll payroll) {
+        PayrollEmployee builder = new PayrollEmployee();
+
+        double grossSalaryPerPayroll = Round.Round(employee.getContract().getBaseSalary() / 2);
+        PayrollTaxes employeeTaxes = this.taxes.payrollTaxes(grossSalaryPerPayroll);
+
+        employeeTaxes.setEmployee(builder);
+        double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax());
+
+        builder.setEmployee(employee);
+        builder.setGrossSalary(grossSalaryPerPayroll);
+        builder.setTaxes(employeeTaxes);
+        builder.setNetSalary(netSalary);
+        builder.setPayroll(payroll);
 
         return builder;
     }

@@ -14,59 +14,40 @@
                 <div class="col-md-12 p-3">
                     <div>
                         <div class="d-inline">
-                            <h2 id="name" th:text="'Planilla de ' + ${currentMonth}"
+                            <h2 id="name" th:text="'Planillas creadas'"
                                 class="mr-0 mb-0 font-weight-bold d-inline"></h2>
                         </div>
-                        <a href="/employee"
-                           class="btn btn-warning mt-0 mx-3 right-element">
-                            Pagar Planilla
-                        </a>
                     </div>
                     <div>
-                        <p class="mb-0">Departamento de recursos humanos - Planilla</p>
-                        <p class="mb-0" th:text="'Pago de Planilla de ' + ${payrollTerm} + ' Quincena'"></p>
-                        <p class="mb-0" th:text="'Fecha actual: ' + ${currentDate}"></p>
+                        <p class="mb-0">Departamento de recursos humanos - Planillas</p>
+                        <a href="/"
+                           class="btn btn-grey mt-0 mx-3 right-element">
+                            Salir
+                        </a>
+
                     </div>
-                    <div class="mt-5">
-                        <form class="form-inline">
-                            <p class="col-sm-3 px-0">Fecha Inicial:
-                                <input type="date" required/></p>
-                            <p class="col-sm-3 px-3">Fecha Final:
-                                <input type="date" required/></p>
-                            <p class="col-sm-3 px-3">Fecha de Pago:
-                                <input type="date" required/></p>
-                            <button class="btn btn-indigo btn-sm my-0" type="submit">Calcular Planilla</button>
-                        </form>
-                    </div>
-                    <div class="mt-2 col-md-12 px-0 table-responsive">
+
+                    <div class="mt-5 col-md-12 px-0 table-responsive">
                         <table id="formulasList" class="table table-sm table-fixed">
                             <thead>
                             <tr>
-                                <th>#Colaborador</th>
+                                <th>#</th>
                                 <th>Nombre</th>
-                                <th>Cédula</th>
-                                <th>Salario Bruto</th>
-                                <th>Seguro Social</th>
-                                <th>Seguro Educativo</th>
-                                <th>ISR</th>
-                                <th>Salario Neto</th>
+                                <th>Acciones</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="employee,iterStat : ${employees}">
-                                <td th:text="${employee.employee.id}" class="block">1</td>
-                                <td th:text="${employee.employee.firstName} + ' ' + ${employee.employee.lastName}" class="block">Juan Solis</td>
-                                <td th:text="${employee.employee.idDocument}" class="block">8-888-8888</td>
-                                <td th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block">1,500.00</td>
-                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.socialSecurityTax, 1, 'COMMA', 2, 'POINT')}" class="block">1,500.00</td>
-                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.educationTax, 1, 'COMMA', 2, 'POINT')}" class="block">100,00</td>
-                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.rentTax, 1, 'COMMA', 2, 'POINT')}" class="block">5,00</td>
-                                <td th:text="'$' + ${#numbers.formatDecimal(employee.netSalary, 1, 'COMMA', 2, 'POINT')}" class="block">115,00</td>
+                            <tr th:each="payroll,iterStat : ${payrolls}">
+                                <td th:text="${iterStat.count}" class="block">1</td>
+                                <td th:text="${payroll.name}" class="block">Juan Solis</td>
+                                <td  class="block">
+                                    <a href="">ver</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div th:include="fragments/navBar :: botonNavbar"></div>
                 </div>
             </div>
         </div>

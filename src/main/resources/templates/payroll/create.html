@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+    <title>Planilla</title>
+</head>
+<body class="body-background">
+<div th:include="fragments/navBar :: navbar"></div>
+<!--Main Navigation-->
+<main>
+    <div class="container flex-top">
+        <div class="card card-cascade">
+            <div class="modal-body">
+                <div class="col-md-12 p-3">
+                    <div>
+                        <div class="d-inline">
+                            <h2 id="name" th:text="'Planilla de ' + ${currentMonth}"
+                                class="mr-0 mb-0 font-weight-bold d-inline"></h2>
+                        </div>
+                        <form method="post" th:action="@{|/payroll/${payroll.id}|}" th:object="${payroll}">
+
+                            <input type="hidden" th:field="*{id}">
+
+                            <button type="submit"
+                               class="btn btn-warning mt-0 mx-3 right-element">
+                                Pagar Planilla
+                            </button>
+                        </form>
+
+                        <a href="/"
+                           class="btn btn-grey mt-0 mx-3 right-element">
+                            Cancelar
+                        </a>
+                    </div>
+                    <div>
+                        <p class="mb-0">Departamento de recursos humanos - Planilla</p>
+                        <p class="mb-0" th:text="'Pago de Planilla de ' + ${payrollTerm} + ' Quincena'"></p>
+                        <p class="mb-0" th:text="'Fecha actual: ' + ${currentDate}"></p>
+                    </div>
+
+                    <div class="mt-5 col-md-12 px-0 table-responsive">
+                        <table id="formulasList" class="table table-sm table-fixed">
+                            <thead>
+                            <tr>
+                                <th>#Colaborador</th>
+                                <th>Nombre</th>
+                                <th>Cédula</th>
+                                <th>Tipo</th>
+                                <th class="text-center">Salario Bruto</th>
+                                <th class="text-center">Seguro Social</th>
+                                <th class="text-center">Seguro Educativo</th>
+                                <th class="text-center">ISR</th>
+                                <th class="text-center">Salario Neto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="employee,iterStat : ${employees}">
+                                <td th:text="${employee.employee.id}" class="block">1</td>
+                                <td th:text="${employee.employee.firstName} + ' ' + ${employee.employee.lastName}" class="block">Juan Solis</td>
+                                <td th:text="${employee.employee.idDocument}" class="block">8-888-8888</td>
+                                <td th:text="${employee.employee.contract.contractType.description}" class="block">8-888-8888</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.grossSalary, 1, 'COMMA', 2, 'POINT')}" class="block text-center">1,500.00</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.socialSecurityTax, 1, 'COMMA', 2, 'POINT')}" class="block text-center">1,500.00</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.educationTax, 1, 'COMMA', 2, 'POINT')}" class="block text-center">100,00</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.rentTax, 1, 'COMMA', 2, 'POINT')}" class="block text-center">5,00</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.netSalary, 1, 'COMMA', 2, 'POINT')}" class="block text-center">115,00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:include="fragments/navBar :: botonNavbar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--/Main Navigation-->
+<th:block th:include="fragments/scripts :: scripts"/>
+</body>
+</html>
