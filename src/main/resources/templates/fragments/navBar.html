@@ -22,65 +22,47 @@
 
 
     <div th:fragment="navbar" >
-        <nav class="navbar navbar-dark indigo darken-4 mb-5 sticky-top">
+        <nav class="navbar navbar-dark indigo darken-4 navbar-expand-lg mb-5 sticky-top">
 
-            <div class="container">
+            <!-- Navbar brand -->
+            <a th:href=${"/"} th:if="${routes == null}" class="white-text navbar-size font-weight-bold navbar-brand">
+                PLANIL.LA
+            </a>
 
-                <!-- SideNav slide-out button -->
-                <div class="float-left">
-                    <a onclick="openNav()" th:if="${routes != null}" class="white-text  navbar-size">
-                        <i class="fa fa-bars"></i> Modulos
-                    </a>
+            <div class="collapse navbar-collapse" id="basicExampleNav">
 
-                    <a th:href=${"/"} th:if="${routes == null}" class="white-text  navbar-size">
-                        <i class="fa fa-home"></i> PLANIL.LA
-                    </a>
-
-
-                </div>
-
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-
-
-
-
-
-
-                    <li class="nav-item  mx-2">
-                        <form class="form-inline" th:action="@{/logout}" method="post">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <button id="logout" class="nav-link transparent no-border logout-btn" type="submit">
-                                        <i class="fa fa-power-off"></i>Salir
-                                    </button>
-                                </li>
-                            </ul>
-                        </form>
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href=${"/"}>Colaboradores Permanentes
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/temporary-employee}">Colaboradores Temporales
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Planillas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Soporte</a>
                     </li>
 
-
-
                 </ul>
+                <!-- Links -->
 
-
-            </div>
-
-            <div class="container  pl-0">
-
-                <!-- Breadcrumb-->
-                <div class="mr-auto" th:if="${routes != null}">
-                    <ol class="breadcrumb clearfix d-none d-md-inline-flex pt-0">
-                        <li th:each="route,iterStat  : ${routes}" class="breadcrumb-item">
-                            <a class="navbar-size" th:href="@{|${route.url}|}" th:text="${route.name}" th:classappend="${iterStat.last}? 'text-muted' : 'white-text'"></a>
+                <form class="form-inline" th:action="@{/logout}" method="post">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <button id="logout" class="nav-link transparent no-border logout-btn" type="submit">
+                                Salir
+                            </button>
                         </li>
-
-                    </ol>
-                </div>
-
-
+                    </ul>
+                </form>
             </div>
-
-
 
         </nav>
 

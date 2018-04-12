@@ -26,24 +26,19 @@
 
                     <div>
 
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/}">Colaboradores Permanentes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/temporary-employee}">Colaboradores Temporales</a>
-                            </li>
-
-                        </ul>
-
-                        <div class="d-inline">
-
-                            <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Colaboradores Permanentes</h2>
+                        <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Colaboradores Permanentes</h2>
 
 
-                            <div class="btn-group right-element">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">Planillas
+                        <div class="mt-2">
+
+                            <a href="/employee"
+                               class="btn btn-warning btn-sm mr-3 ml-0">
+                                Añadir Colaborador
+                            </a>
+
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">Generar Planilla
                                 </button>
 
                                 <div class="dropdown-menu">
@@ -53,18 +48,20 @@
                             </div>
 
 
+
+
+
                         </div>
 
-                        <a href="/employee"
-                           class="btn btn-warning mt-0 mx-3 right-element">
-                            Añadir Colaborador
-                        </a>
 
                     </div>
 
+                    <hr>
+
                     <div class="mt-5">
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Ej. Jose Perez"
+
+                        <form class="form-inline col-sm-8">
+                            <input class="form-control mr-sm-2 col-sm-6" type="text" placeholder="Buscar colaborador: Ej. Jose Perez"
                                    aria-label="Search">
                             <button class="btn btn-warning btn-sm my-0" type="submit">Buscar</button>
                         </form>
@@ -72,14 +69,17 @@
                     </div>
 
 
-                    <div class="mt-2 table-ceter col-md-12 px-0">
+                    <div class="mt-5 table-ceter col-md-12 px-0">
+
+                        <h3 class="font-weight-bold">Colaboradores</h3>
 
                         <table id="formulasList" class="table table-hover">
                             <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Tipo de colaborador</th>
+                                <th>Tipo</th>
                                 <th>Cargo</th>
                                 <th>Departamento</th>
                                 <th>Opciones</th>
@@ -88,6 +88,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="employee,iterStat : ${employees}">
+                                <td th:text="${iterStat.count}"></td>
                                 <td th:text="${employee.firstName}">Juan</td>
                                 <td th:text="${employee.lastName}">Solis</td>
                                 <td th:text="${employee.contract.contractType.description}">Permanente</td>
@@ -120,10 +121,34 @@
                             </tbody>
                         </table>
 
+                        <!--Pagination-->
+                        <nav aria-label="pagination example">
+                            <ul class="pagination pagination-lg">
+
+                                <!--Arrow left-->
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+
+                                <!--Numbers-->
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                                <!--Arrow right-->
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
                     </div>
-
-                    <div th:include="fragments/navBar :: botonNavbar"></div>
-
 
                 </div>
 
@@ -164,4 +189,5 @@
 <th:block th:include="fragments/scripts :: scripts"/>
 
 </body>
+
 </html>
