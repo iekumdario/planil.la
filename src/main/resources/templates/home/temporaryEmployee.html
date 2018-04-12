@@ -28,7 +28,7 @@
 
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/}">Colaboradores Temporales</a>
+                                <a class="nav-link active" th:href="@{/}">Colaboradores Permanentes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/temporary-employee}">Colaboradores Temporales</a>
@@ -49,7 +49,6 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/payroll">Quincenal</a>
                                     <a class="dropdown-item" href="#">Decimo</a>
-                                    <a class="dropdown-item" href="#">Vacaciones</a>
                                 </div>
                             </div>
 
@@ -99,10 +98,6 @@
 
                                         <a th:href="@{/payroll/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
                                             Calcular Pago
-                                        </a>
-
-                                        <a href="#" class="mx-4 font-weight-bold">
-                                            Pagar Decimo
                                         </a>
 
                                         <a th:href="@{/employee/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">

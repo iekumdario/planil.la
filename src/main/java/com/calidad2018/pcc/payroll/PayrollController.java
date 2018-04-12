@@ -50,6 +50,18 @@ public class PayrollController {
 
     @GetMapping(value = "/{employeeId}")
     public String getEmployeePayroll(Model model, @PathVariable Long employeeId) {
+        getEmployeePayrollByTerm(model, employeeId);
+        return "payroll/employee";
+    }
+
+    @GetMapping(value = "/vacations/{employeeId}")
+    public String getEmployeeVacationsPayroll(Model model, @PathVariable Long employeeId) {
+        getEmployeePayrollByTerm(model, employeeId);
+        return "payroll/employeeVacations";
+    }
+
+    // este metodo llamaria con diferentes parametros a employeePayroll dependiendo del termino del pago(quincena, decimo o vacaciones)
+    private void getEmployeePayrollByTerm(Model model, @PathVariable Long employeeId) {
         Employee employee = employeeServices.findById(employeeId);
         PayrollEmployee employeePayroll = getPayroll(employee);
 
@@ -58,10 +70,9 @@ public class PayrollController {
         double totalDeductions = employeePayroll.getGrossSalary() - employeePayroll.getNetSalary();
         model.addAttribute("totalDeductions", totalDeductions);
         setPayrollDateModel(model);
-
-        return "payroll/employee";
     }
 
+    //parametrizar para variar el termino de pago
     private PayrollEmployee getPayroll(Employee employee) {
         PayrollEmployee builder = new PayrollEmployee();
 
