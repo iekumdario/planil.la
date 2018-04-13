@@ -57,31 +57,6 @@ public class PayrollController {
         return "payroll/create";
     }
 
-    private void createAndSavePayroll(Model model, List<PayrollEmployee> payrollEmployees, Payroll payroll) {
-        Set<PayrollEmployee> set = new HashSet<PayrollEmployee>(payrollEmployees);
-
-        System.out.println("Set values .....");
-        for (PayrollEmployee temp : set){
-            System.out.println(temp.getEmployee().getFirstName());
-        }
-
-        Calendar calendar = Calendar.getInstance();
-
-        payroll.setName(model.asMap().get("payrollTerm").toString() + " " + model.asMap().get("currentMonth"));
-
-        payroll.setEndDate(calendar.getTime());
-
-        payroll.setPayDate(calendar.getTime());
-
-        payroll.setStartDate(calendar.getTime());
-
-        payroll.setEmployees(set);
-
-        payroll.setState(false);
-
-        payrollService.save(payroll);
-    }
-
     @GetMapping(value = "/{employeeId}")
     public String getEmployeePayroll(Model model, @PathVariable Long employeeId) {
         getEmployeePayrollByTerm(model, employeeId);
@@ -90,12 +65,18 @@ public class PayrollController {
 
     @GetMapping(value = "/vacations/{employeeId}")
     public String getEmployeeVacationsPayroll(Model model, @PathVariable Long employeeId) {
-        getEmployeePayrollByTerm(model, employeeId);
+        List<PayrollEmployee> payrollEmployees = new ArrayList<>();
+        PayrollEmployee payrollEmployee = getVacationEmployeePayrollByTerm(model, employeeId);
+        payrollEmployees.add(payrollEmployee);
+        Payroll payroll = payrollEmployee.getPayroll();
+        createAndSavePayroll(model,payrollEmployees,payroll,true);
+
+        model.addAttribute("payroll", payroll);
         return "payroll/employeeVacations";
     }
 
     @PostMapping(value = "/{payrollId}")
-    public String upsert(@ModelAttribute Employee employee, @PathVariable Long payrollId,Model model, BindingResult bindingResult) {
+    public String upsert(@ModelAttribute Employee employee, @PathVariable Long payrollId, Model model, BindingResult bindingResult) {
 
         Payroll payroll = payrollService.findById(payrollId);
 
@@ -116,10 +97,44 @@ public class PayrollController {
         return "payroll/index";
     }
 
+    private void createAndSavePayroll(Model model, List<PayrollEmployee> payrollEmployees, Payroll payroll) {
+        createAndSavePayroll(model,payrollEmployees,payroll,false);
+    }
 
+    private void createAndSavePayroll(Model model, List<PayrollEmployee> payrollEmployees, Payroll payroll, boolean isVacation) {
+        String payrollTerm = model.asMap().get("payrollTerm").toString();
+        String month = model.asMap().get("currentMonth").toString();
+        String payrollName = isVacation ? payrollEmployees.get(0).getEmployee().getFullName() + " vacaciones " + payrollTerm + " quincena " + month : payrollTerm + " quincena " + month;
+        createAndSavePayroll(model,payrollEmployees,payroll,payrollName);
+    }
+
+    private void createAndSavePayroll(Model model, List<PayrollEmployee> payrollEmployees, Payroll payroll, String name) {
+        Set<PayrollEmployee> set = new HashSet<PayrollEmployee>(payrollEmployees);
+
+        System.out.println("Set values .....");
+        for (PayrollEmployee temp : set){
+            System.out.println(temp.getEmployee().getFirstName());
+        }
+
+        Calendar calendar = Calendar.getInstance();
+
+        payroll.setName(name);
+
+        payroll.setEndDate(calendar.getTime());
+
+        payroll.setPayDate(calendar.getTime());
+
+        payroll.setStartDate(calendar.getTime());
+
+        payroll.setEmployees(set);
+
+        payroll.setState(false);
+
+        payrollService.save(payroll);
+    }
 
     // este metodo llamaria con diferentes parametros a employeePayroll dependiendo del termino del pago(quincena, decimo o vacaciones)
-    private void getEmployeePayrollByTerm(Model model, @PathVariable Long employeeId) {
+    private PayrollEmployee getEmployeePayrollByTerm(Model model, @PathVariable Long employeeId) {
         Employee employee = employeeServices.findById(employeeId);
         PayrollEmployee employeePayroll = getPayroll(employee);
 
@@ -128,6 +143,20 @@ public class PayrollController {
         double totalDeductions = employeePayroll.getGrossSalary() - employeePayroll.getNetSalary();
         model.addAttribute("totalDeductions", totalDeductions);
         setPayrollDateModel(model);
+        return employeePayroll;
+    }
+
+    private PayrollEmployee getVacationEmployeePayrollByTerm(Model model, @PathVariable Long employeeId) {
+        //esta pantalla si permite pagar asi que debemos crear la planilla
+        Payroll payroll = new Payroll();
+        Employee employee = employeeServices.findById(employeeId);
+        PayrollEmployee employeePayroll = getPayroll(employee,payroll);
+
+        model.addAttribute("employee", employeePayroll);
+        double totalDeductions = employeePayroll.getGrossSalary() - employeePayroll.getNetSalary();
+        model.addAttribute("totalDeductions", totalDeductions);
+        setPayrollDateModel(model);
+        return employeePayroll;
     }
 
     //parametrizar para variar el termino de pago

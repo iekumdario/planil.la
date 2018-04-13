@@ -17,10 +17,15 @@
                             <h2 id="name" th:text="'Pago de vacaciones' + ' - ' + ${currentMonth}"
                                 class="mr-0 mb-0 font-weight-bold d-inline"></h2>
                         </div>
-                        <a href="#"
-                           class="btn btn-warning mt-0 mx-3 right-element">
-                            Pagar vacaciones
-                        </a>
+                        <form method="post" th:action="@{|/payroll/${payroll.id}|}" th:object="${payroll}">
+
+                            <input type="hidden" th:field="*{id}">
+
+                            <button type="submit"
+                                    class="btn btn-warning mt-0 mx-3 right-element">
+                                Pagar vacaciones
+                            </button>
+                        </form>
                     </div>
                     <br><br>
                     <div>
