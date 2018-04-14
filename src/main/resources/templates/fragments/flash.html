@@ -15,7 +15,7 @@
 
 
 <div th:fragment="flashApp" th:if="${flashApp != null}" class="container">
-    <div id="flashMessage" th:classappend="'alert-' + ${#strings.toLowerCase(flashApp.status)}" th:text="${flashApp.message}" class="alert"></div>
+    <div th:classappend="'alert-' + ${#strings.toLowerCase(flashApp.status)}" th:text="${flashApp.message}" class="alert"></div>
 </div>
 
 

@@ -1,9 +1,7 @@
 package com.calidad2018.pcc.payroll.PayRollTaxes;
 
 import com.calidad2018.pcc.core.BaseEntityId;
-import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
-import lombok.Getter;
-import lombok.Setter;
+import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;

@@ -1,11 +1,9 @@
 package com.calidad2018.pcc.employee;
-import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
+import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
 import com.calidad2018.pcc.position.Position;
 import com.calidad2018.pcc.contract.Contract;
 import com.calidad2018.pcc.department.Department;
 import com.calidad2018.pcc.utils.Gender;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;

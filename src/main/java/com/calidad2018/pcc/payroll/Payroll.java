@@ -1,15 +1,7 @@
 package com.calidad2018.pcc.payroll;
 
-import com.calidad2018.pcc.contract.Contract;
-import com.calidad2018.pcc.core.BaseEntity;
-import com.calidad2018.pcc.department.Department;
-import com.calidad2018.pcc.employee.Employee;
-import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
-import com.calidad2018.pcc.position.Position;
-import com.calidad2018.pcc.utils.Gender;
-import org.hibernate.validator.constraints.Email;
+import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

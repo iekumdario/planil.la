@@ -1,9 +1,11 @@
 package com.calidad2018.pcc.payroll;
 
+import com.calidad2018.pcc.core.EntityService;
 import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.employee.EmployeeService;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
-import com.calidad2018.pcc.payroll.PayrollEmploy.PayrollEmployee;
+import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
+import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployeeService;
 import com.calidad2018.pcc.payroll.taxesFactory.Taxes;
 import com.calidad2018.pcc.utils.Constants;
 import com.calidad2018.pcc.utils.Round;
@@ -13,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -23,6 +27,9 @@ public class PayrollController {
 
     @Autowired
     private EmployeeService<Employee> employeeServices;
+
+    @Autowired
+    private PayrollEmployeeService payrollEmployeeService;
 
     @Autowired
     private PayrollServiceImpl payrollService;
@@ -41,9 +48,25 @@ public class PayrollController {
         Payroll payroll = new Payroll();
 
         employees.forEach(employee -> {
-            PayrollEmployee builder = getPayroll(employee,payroll);
-            payrollEmployees.add(builder);
+            boolean allowPayment;
+            Payroll lastEmployeePayroll = payrollEmployeeService.findLastEmployeePayroll(employee.getId());
+            if(lastEmployeePayroll == null){
+                // no payrolls yet for this employee
+                allowPayment = true;
+            } else {
+                LocalDate lastPayDate = lastEmployeePayroll.getPayDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                // check if employee has already been paid in this term (via vacations or  previous payroll)
+                allowPayment = lastPayDate.compareTo(LocalDate.now().minusDays(15)) <= 0;
+            }
+            if(allowPayment){
+                PayrollEmployee builder = getPayroll(employee,payroll);
+                payrollEmployees.add(builder);
+            }
         });
+
+        if(payrollEmployees.size() == 0) {
+            return "payroll/error";
+        }
 
         model.addAttribute("employees", payrollEmployees);
 
@@ -65,12 +88,26 @@ public class PayrollController {
 
     @GetMapping(value = "/vacations/{employeeId}")
     public String getEmployeeVacationsPayroll(Model model, @PathVariable Long employeeId) {
+        boolean allowPayment;
+        Payroll lastEmployeePayroll = payrollEmployeeService.findLastEmployeePayroll(employeeId);
+        if(lastEmployeePayroll == null){
+            // no payrolls yet for this employee
+            allowPayment = true;
+        } else {
+            LocalDate lastPayDate = lastEmployeePayroll.getPayDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            // check if employee has already been paid in the last 15 days
+            allowPayment = lastPayDate.compareTo(LocalDate.now().minusDays(15)) <= 0;
+        }
+
+        if(!allowPayment) {
+            return "payroll/error";
+        }
+
         List<PayrollEmployee> payrollEmployees = new ArrayList<>();
         PayrollEmployee payrollEmployee = getVacationEmployeePayrollByTerm(model, employeeId);
         payrollEmployees.add(payrollEmployee);
         Payroll payroll = payrollEmployee.getPayroll();
         createAndSavePayroll(model,payrollEmployees,payroll,true);
-
         model.addAttribute("payroll", payroll);
         return "payroll/employeeVacations";
     }
