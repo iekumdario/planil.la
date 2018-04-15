@@ -43,10 +43,10 @@ deploy_to_heroku () {
 
 set_heroku_login () {
 	echo "machine api.heroku.com
-	  password c6cd2a5a-c9c5-4785-b260-0b2b70c7d39b
+	  password 9ed7953a-d1a6-47c0-b3d2-111eb2a57ab9
 	  login jdquinterov@gmail.com
 	machine git.heroku.com
-	  password c6cd2a5a-c9c5-4785-b260-0b2b70c7d39b
+	  password 9ed7953a-d1a6-47c0-b3d2-111eb2a57ab9
 	  login jdquinterov@gmail.com" >> ~/.netrc
 }
 
