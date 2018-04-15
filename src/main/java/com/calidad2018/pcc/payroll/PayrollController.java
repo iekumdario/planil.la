@@ -1,11 +1,10 @@
 package com.calidad2018.pcc.payroll;
 
-import com.calidad2018.pcc.core.EntityService;
 import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.employee.EmployeeService;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
 import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
-import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployeeService;
+import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployeeServiceImpl;
 import com.calidad2018.pcc.payroll.taxesFactory.Taxes;
 import com.calidad2018.pcc.utils.Constants;
 import com.calidad2018.pcc.utils.Round;
@@ -29,11 +28,7 @@ public class PayrollController {
     private EmployeeService<Employee> employeeServices;
 
     @Autowired
-    private PayrollEmployeeService payrollEmployeeService;
-
-    @Autowired
     private PayrollServiceImpl payrollService;
-
 
     @Autowired
     private Taxes taxes;
@@ -49,7 +44,7 @@ public class PayrollController {
 
         employees.forEach(employee -> {
             boolean allowPayment;
-            Payroll lastEmployeePayroll = payrollEmployeeService.findLastEmployeePayroll(employee.getId());
+            Payroll lastEmployeePayroll = payrollService.findLastEmployeePayroll(employee);
             if(lastEmployeePayroll == null){
                 // no payrolls yet for this employee
                 allowPayment = true;
@@ -89,7 +84,8 @@ public class PayrollController {
     @GetMapping(value = "/vacations/{employeeId}")
     public String getEmployeeVacationsPayroll(Model model, @PathVariable Long employeeId) {
         boolean allowPayment;
-        Payroll lastEmployeePayroll = payrollEmployeeService.findLastEmployeePayroll(employeeId);
+        Employee employee = employeeServices.findById(employeeId);
+        Payroll lastEmployeePayroll = payrollService.findLastEmployeePayroll(employee);
         if(lastEmployeePayroll == null){
             // no payrolls yet for this employee
             allowPayment = true;

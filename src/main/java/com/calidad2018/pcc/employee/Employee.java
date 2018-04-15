@@ -1,4 +1,5 @@
 package com.calidad2018.pcc.employee;
+import com.calidad2018.pcc.creditor.Creditor;
 import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
 import com.calidad2018.pcc.position.Position;
 import com.calidad2018.pcc.contract.Contract;
@@ -72,6 +73,9 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<PayrollEmployee> payrollEmployee;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Creditor> creditors;
 
     public Employee() {
     }
@@ -206,5 +210,13 @@ public class Employee {
 
     public void setPayrollEmployee(Set<PayrollEmployee> payrollEmployee) {
         this.payrollEmployee = payrollEmployee;
+    }
+
+    public Set<Creditor> getCreditors() {
+        return creditors;
+    }
+
+    public void setCreditors(Set<Creditor> creditors) {
+        this.creditors = creditors;
     }
 }

@@ -1,6 +1,5 @@
 package com.calidad2018.pcc.employee;
 
-import com.calidad2018.pcc.core.EntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -41,14 +40,14 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
     public Page<Employee> findByContract(String type, org.springframework.data.domain.Pageable pageable) {
 
-        return dao.findByContractContratType(type,pageable);
+        return dao.findByContractContractType(type,pageable);
 
     }
 
     @Override
     public List<Employee> findByContractType(String type) {
 
-        return dao.findByContractContratType(type);
+        return dao.findByContractContractType(type);
 
     }
 }

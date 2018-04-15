@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class PayrollEmployeeServiceImpl implements PayrollEmployeeService{
+public class PayrollEmployeeServiceImpl implements EntityService<PayrollEmployee>{
 
     @Autowired
     private PayrollEmployeeDAO dao;
@@ -35,23 +35,5 @@ public class PayrollEmployeeServiceImpl implements PayrollEmployeeService{
     @Transactional
     public void delete(Long id){
         this.dao.delete(id);
-    }
-    @Override
-    @Transactional
-    public Payroll findLastEmployeePayroll(Long employeeId){
-        Iterable<PayrollEmployee> employeePayrolls = this.dao.findAll();
-        ArrayList<Payroll> payrollArray = new ArrayList<>();
-        // get all payrolls of employee
-        employeePayrolls.forEach(ep -> {
-            if(ep.getEmployee().getId() == employeeId){
-                payrollArray.add(ep.getPayroll());
-            }
-        });
-        if(payrollArray.size() > 0){
-            // return last payroll
-            payrollArray.sort(Comparator.comparingLong(Payroll::getId).reversed());
-            return payrollArray.get(0);
-        }
-        return null;
     }
 }

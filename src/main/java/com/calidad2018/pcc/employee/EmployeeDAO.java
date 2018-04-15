@@ -14,10 +14,10 @@ import java.util.List;
 public interface EmployeeDAO extends PagingAndSortingRepository<Employee, Long> {
 
     @Query("select p from Employee p where p.contract.contractType.description=:#{#description}")
-    Page<Employee> findByContractContratType(@Param("description") String description, Pageable pageable);
+    Page<Employee> findByContractContractType(@Param("description") String description, Pageable pageable);
 
     @Query("select p from Employee p where p.contract.contractType.description=:#{#description}")
-    List<Employee> findByContractContratType(@Param("description") String description);
+    List<Employee> findByContractContractType(@Param("description") String description);
 
 
 }
