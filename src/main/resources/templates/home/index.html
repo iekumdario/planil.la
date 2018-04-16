@@ -1,78 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <head>
     <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
-
     <title>Home</title>
-
 </head>
-
 <body class="body-background">
-
 <div th:include="fragments/navBar :: navbar"></div>
-
-
 <!--Main Navigation-->
 <main>
-
     <div class="container flex-top">
-
         <div class="card card-cascade">
-
             <div class="modal-body">
-
                 <div class="col-md-12 p-3">
-
                     <div>
-
                         <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Colaboradores Permanentes</h2>
-
-
                         <div class="mt-2">
-
                             <a href="/employee"
                                class="btn btn-warning btn-sm mr-3 ml-0">
                                 Añadir Colaborador
                             </a>
-
                             <div class="btn-group">
-                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">Generar Planilla
                                 </button>
-
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/payroll/create">Quincenal</a>
                                     <a class="dropdown-item" href="#">Decimo</a>
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
-
-
                     </div>
-
                     <hr>
-
                     <div class="mt-5">
-
                         <form class="form-inline col-sm-8">
-                            <input class="form-control mr-sm-2 col-sm-6" type="text" placeholder="Buscar colaborador: Ej. Jose Perez"
+                            <input class="form-control mr-sm-2 col-sm-6" type="text"
+                                   placeholder="Buscar colaborador: Ej. Jose Perez"
                                    aria-label="Search">
                             <button class="btn btn-warning btn-sm my-0" type="submit">Buscar</button>
                         </form>
-
                     </div>
-
-
                     <div class="mt-5 table-ceter col-md-12 px-0">
-
                         <h3 class="font-weight-bold">Colaboradores</h3>
-
                         <table id="formulasList" class="table table-hover">
                             <thead>
                             <tr>
@@ -83,7 +52,6 @@
                                 <th>Cargo</th>
                                 <th>Departamento</th>
                                 <th>Opciones</th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -96,35 +64,32 @@
                                 <td th:text="${employee.department.description}">Ventas</td>
                                 <td>
                                     <div class="d-flex flex-row">
-
+                                        <a th:href="@{/employee/creditors/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
+                                            Editar Acreedores
+                                        </a>
                                         <a th:href="@{/payroll/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
                                             Calcular Pago
                                         </a>
-
-                                        <a th:href="@{/payroll/vacations/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
+                                        <a th:href="@{/payroll/vacations/{id}(id=${employee.id})}"
+                                           class="mx-4 font-weight-bold">
                                             Pagar Vacaciones
                                         </a>
-
                                         <a th:href="@{/employee/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
                                             Editar
                                         </a>
-
-                                        <form th:id="'deleteForm' + ${employee.id}" action="#" th:action="@{/employee/{id}(id=${employee.id})}" th:method="delete">
-                                            <a href="javascript:void(0);" class="mx-4 font-weight-bold" th:onclick="'deleteEmployee(\''+ 'deleteForm' + ${employee.id} + '\');'">Eliminar</a>
+                                        <form th:id="'deleteForm' + ${employee.id}" action="#"
+                                              th:action="@{/employee/{id}(id=${employee.id})}" th:method="delete">
+                                            <a href="javascript:void(0);" class="mx-4 font-weight-bold"
+                                               th:onclick="'deleteEmployee(\''+ 'deleteForm' + ${employee.id} + '\');'">Eliminar</a>
                                         </form>
-
-
                                     </div>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
-
                         <!--Pagination-->
                         <nav aria-label="pagination example">
                             <ul class="pagination pagination-lg">
-
                                 <!--Arrow left-->
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -132,12 +97,10 @@
                                         <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
-
                                 <!--Numbers-->
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-
                                 <!--Arrow right-->
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Next">
@@ -147,47 +110,13 @@
                                 </li>
                             </ul>
                         </nav>
-
                     </div>
-
                 </div>
-
-            </div>
-        </div>
-
-    </div>
-
-</main>
-
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-danger" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <p class="heading lead">Eliminar colaborador</p>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="text-center">
-                    <p>Esta seguro que desea eliminar a este colaborador? No podrá deshacer esta accion</p>
-                </div>
-            </div>
-
-            <div class="modal-footer justify-content-center">
-                <button id="confirmDeleteButton" type="button" class="btn btn-danger">Eliminar</button>
-                <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
-</div>
-
-<!--/Main Navigation-->
-
+</main><!--/Main Navigation-->
+<th:block th:include="fragments/confirmModal :: confirmModal"/>
 <th:block th:include="fragments/scripts :: scripts"/>
-
 </body>
-
 </html>

@@ -10,6 +10,16 @@ function checkTemporaryEmployee(contractType){
 
 function deleteEmployee(formId){
     var modalElement = $('#confirmDeleteModal');
+    modalElement.find('#titleText').first().html('Eliminar colaborador');
+    modalElement.find('#message').first().html('Esta seguro que desea eliminar a este colaborador? No podra; deshacer esta accion');
+    modalElement.find('#confirmDeleteButton').first().attr('onclick', 'document.getElementById(\''+formId+'\').submit();');
+    modalElement.modal();
+}
+
+function deleteCreditor(formId){
+    var modalElement = $('#confirmDeleteModal');
+    modalElement.find('#titleText').first().html('Eliminar acreedor');
+    modalElement.find('#message').first().html('Estas seguro que deseas eliminar este acreedor?');
     modalElement.find('#confirmDeleteButton').first().attr('onclick', 'document.getElementById(\''+formId+'\').submit();');
     modalElement.modal();
 }

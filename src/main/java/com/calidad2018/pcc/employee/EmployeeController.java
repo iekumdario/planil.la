@@ -22,30 +22,29 @@ import java.util.*;
 public class EmployeeController {
 
     @Autowired
-    private EntityService<Position> positionRepo;
+    private EntityService<Position> positionService;
 
     @Autowired
-    private EntityService<ContractType> contractTypeRepo;
+    private EntityService<ContractType> contractTypeService;
 
     @Autowired
-    private EntityService<Department> departmentRepo;
+    private EntityService<Department> departmentService;
 
     @Autowired
-    private EmployeeService<Employee> employeeRepo;
+    private EmployeeService<Employee> employeeService;
 
     @Autowired
-    private EntityService<Contract> contractRepo;
+    private EntityService<Contract> contractService;
 
-    @GetMapping(value = "/{userId}")
-    public String updateForm(Model model, @PathVariable Long userId) {
-        Employee employee = employeeRepo.findById(userId);
+    @GetMapping(value = "/{employeeId}")
+    public String updateForm(Model model, @PathVariable Long employeeId) {
+        Employee employee = employeeService.findById(employeeId);
         model.addAttribute("employee", employee);
         model.addAttribute("isNew",false);
         setupFormModel(model);
 
-        return "employee/form";
+        return "employee/index";
     }
-
 
     @GetMapping
     public String newForm(Model model) {
@@ -58,7 +57,19 @@ public class EmployeeController {
         model.addAttribute("isNew",true);
         setupFormModel(model);
 
-        return "employee/form";
+        return "employee/index";
+    }
+
+    @GetMapping(value = "/creditors/{employeeId}")
+    public String creditors(Model model, @PathVariable Long employeeId) {
+        Employee employee = employeeService.findById(employeeId);
+        if(employee == null){
+            return "error";
+        }
+        model.addAttribute("employee",employee);
+        boolean hasCreditors = !employee.getCreditors().isEmpty();
+        model.addAttribute("hasCreditors", hasCreditors);
+        return "employee/creditors";
     }
 
     @PostMapping
@@ -67,8 +78,8 @@ public class EmployeeController {
         if(!bindingResult.hasErrors()){
             model.addAttribute("employee", employee);
             System.out.printf(employee.toString());
-            contractRepo.save(employee.getContract());
-            employeeRepo.save(employee);
+            contractService.save(employee.getContract());
+            employeeService.save(employee);
 
             return "redirect:/";
         }
@@ -77,19 +88,19 @@ public class EmployeeController {
 
     @DeleteMapping(value = "/{userId}")
     public String delete(@PathVariable Long userId) {
-        try{
-            employeeRepo.delete(userId);
+        try {
+            employeeService.delete(userId);
             return "redirect:/";
-        }catch(Exception e){
+        } catch(Exception e) {
             return "error";
         }
     }
 
     private void setupFormModel(Model model){
-        model.addAttribute("availablePositions", positionRepo.findAll());
+        model.addAttribute("availablePositions", positionService.findAll());
         model.addAttribute("genders", Gender.values());
-        model.addAttribute("contractTypes", contractTypeRepo.findAll());
-        model.addAttribute("departments", departmentRepo.findAll());
+        model.addAttribute("contractTypes", contractTypeService.findAll());
+        model.addAttribute("departments", departmentService.findAll());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String maxDOB = LocalDateTime.now().minusYears(18).format(formatter);
         String minDOB = LocalDateTime.now().minusYears(62).format(formatter);

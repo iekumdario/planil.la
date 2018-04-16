@@ -140,6 +140,10 @@
                                 <th>Impuesto Educativo</th>
                                 <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.educationTax, 1, 'COMMA', 2, 'POINT')}" class="block sum">100,00</td>
                             </tr>
+                            <tr>
+                                <th>Pago a acreedores</th>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.creditorDebt, 1, 'COMMA', 2, 'POINT')}" class="block sum">100,00</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

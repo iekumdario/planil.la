@@ -50,6 +50,7 @@
                                 <th class="text-center">Seguro Social</th>
                                 <th class="text-center">Seguro Educativo</th>
                                 <th class="text-center">ISR</th>
+                                <th class="text-center">Acreedores</th>
                                 <th class="text-center">Salario Neto</th>
                             </tr>
                             </thead>
@@ -63,6 +64,7 @@
                                 <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.socialSecurityTax, 1, 'COMMA', 2, 'POINT')}" class="block text-center">1,500.00</td>
                                 <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.educationTax, 1, 'COMMA', 2, 'POINT')}" class="block text-center">100,00</td>
                                 <td th:text="'$' + ${#numbers.formatDecimal(employee.taxes.rentTax, 1, 'COMMA', 2, 'POINT')}" class="block text-center">5,00</td>
+                                <td th:text="'$' + ${#numbers.formatDecimal(employee.creditorDebt, 1, 'COMMA', 2, 'POINT')}" class="block text-center">115,00</td>
                                 <td th:text="'$' + ${#numbers.formatDecimal(employee.netSalary, 1, 'COMMA', 2, 'POINT')}" class="block text-center">115,00</td>
                             </tr>
                             </tbody>
