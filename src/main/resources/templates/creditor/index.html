@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+    <title th:text="${isNew} ? 'Nuevo Acreedor' : 'Editar Acreedor'"></title>
+</head>
+<body class="body-background">
+<div th:include="fragments/navBar :: navbar"></div>
+<!--Main Navigation-->
+<main>
+    <div class="container flex-top">
+        <div class="card card-cascade">
+            <div class="modal-body">
+                <div class="col-md-12 p-3">
+                    <div class="col-xs-12 col-sm-12">
+                        <h1 class="font-weight-bold" th:text="${isNew} ? 'Nuevo Acreedor' : 'Editar Acreedor'"></h1>
+                        <form class="col-sm-6 mt-3" th:action="@{/creditor}" th:object="${creditor}" method="post" id="creditorForm">
+                            <p>Nombre:
+                                <input type="text" th:field="*{name}" required/></p>
+                            <p>Monto Quincenal <span th:text="'(monto maximo: '+${maxAmount}+')'"></span>:
+                                <input type="number" th:field="*{amount}" min="1" th:attr="max=${maxAmount}" required/>
+                            </p>
+                            <p># de pagos:
+                                <input type="number" th:field="*{payments}" min="1" step="1" required/>
+                            </p>
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{employee.id}"/>
+                            <p>
+                                <input class="btn btn-warning" type="submit" value="Guardar"/>
+                                <input class="btn btn-indigo" type="reset" value="Limpiar"/>
+                                <a class="btn btn-grey" th:href="@{/employee/creditors/{id}(id=${creditor.employee.id})}">Regresar</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="fragments/scripts :: scripts"/>
+</body>
+</html>

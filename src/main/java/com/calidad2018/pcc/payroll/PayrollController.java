@@ -1,10 +1,11 @@
 package com.calidad2018.pcc.payroll;
 
+import com.calidad2018.pcc.core.EntityService;
+import com.calidad2018.pcc.creditor.Creditor;
 import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.employee.EmployeeService;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
 import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
-import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployeeServiceImpl;
 import com.calidad2018.pcc.payroll.taxesFactory.Taxes;
 import com.calidad2018.pcc.utils.Constants;
 import com.calidad2018.pcc.utils.Round;
@@ -29,6 +30,9 @@ public class PayrollController {
 
     @Autowired
     private PayrollServiceImpl payrollService;
+
+    @Autowired
+    private EntityService<Creditor> creditorService;
 
     @Autowired
     private Taxes taxes;
@@ -113,6 +117,20 @@ public class PayrollController {
 
         Payroll payroll = payrollService.findById(payrollId);
 
+        Iterable<PayrollEmployee> payrollEmployees = payroll.getEmployees();
+
+        // 'pagarle' a los acreedores
+        payrollEmployees.forEach(pe -> {
+            Iterable<Creditor> creditors = pe.getEmployee().getCreditors();
+            creditors.forEach(c-> {
+                int paymentsMade = c.getPaymentsMade();
+                if(paymentsMade < c.getPayments()) {
+                    c.setPaymentsMade(paymentsMade + 1);
+                    creditorService.save(c);
+                }
+            });
+        });
+
         payroll.setState(true);
 
         payrollService.save(payroll);
@@ -166,13 +184,11 @@ public class PayrollController {
         payrollService.save(payroll);
     }
 
-    // este metodo llamaria con diferentes parametros a employeePayroll dependiendo del termino del pago(quincena, decimo o vacaciones)
     private PayrollEmployee getEmployeePayrollByTerm(Model model, @PathVariable Long employeeId) {
         Employee employee = employeeServices.findById(employeeId);
         PayrollEmployee employeePayroll = getPayroll(employee);
 
         model.addAttribute("employee", employeePayroll);
-        // calculando aparte en caso de que se hagan las deducciones personales
         double totalDeductions = employeePayroll.getGrossSalary() - employeePayroll.getNetSalary();
         model.addAttribute("totalDeductions", totalDeductions);
         setPayrollDateModel(model);
@@ -192,17 +208,16 @@ public class PayrollController {
         return employeePayroll;
     }
 
-    //parametrizar para variar el termino de pago
+
     private PayrollEmployee getPayroll(Employee employee) {
-        PayrollEmployee builder = new PayrollEmployee();
+        PayrollEmployee builder = new PayrollEmployee(employee);
 
         double grossSalaryPerPayroll = Round.Round(employee.getContract().getBaseSalary() / 2);
         PayrollTaxes employeeTaxes = this.taxes.payrollTaxes(grossSalaryPerPayroll);
 
         employeeTaxes.setEmployee(builder);
-        double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax());
+        double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax() - builder.getCreditorDebt());
 
-        builder.setEmployee(employee);
         builder.setGrossSalary(grossSalaryPerPayroll);
         builder.setTaxes(employeeTaxes);
         builder.setNetSalary(netSalary);
@@ -212,19 +227,17 @@ public class PayrollController {
 
 
     private PayrollEmployee getPayroll(Employee employee,Payroll payroll) {
-        PayrollEmployee builder = new PayrollEmployee();
+        PayrollEmployee builder = new PayrollEmployee(employee, payroll);
 
         double grossSalaryPerPayroll = Round.Round(employee.getContract().getBaseSalary() / 2);
         PayrollTaxes employeeTaxes = this.taxes.payrollTaxes(grossSalaryPerPayroll);
 
         employeeTaxes.setEmployee(builder);
-        double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax());
+        double netSalary = Round.Round(grossSalaryPerPayroll - employeeTaxes.getTotalInTax() - builder.getCreditorDebt());
 
-        builder.setEmployee(employee);
         builder.setGrossSalary(grossSalaryPerPayroll);
         builder.setTaxes(employeeTaxes);
         builder.setNetSalary(netSalary);
-        builder.setPayroll(payroll);
 
         return builder;
     }

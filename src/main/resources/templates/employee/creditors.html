@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
+    <title>Acreedores</title>
+</head>
+<body class="body-background">
+<div th:include="fragments/navBar :: navbar"></div>
+<main>
+    <div class="container flex-top">
+        <div class="card card-cascade">
+            <div class="modal-body">
+                <div class="col-md-12 p-3">
+                    <div>
+                        <h2 id="name" th:text="'Edita los acreedores de ' + ${employee.firstName} + ' ' +  ${employee.lastName}" class="mr-0 mb-0 font-weight-bold d-inline">Acreedores</h2>
+                        <a th:href="@{/creditor/new/{id}(id=${employee.id})}"
+                           class="btn btn-warning mt-0 mx-3 right-element">
+                            Nuevo acreedor
+                        </a>
+                        <a href="/"
+                           class="btn btn-grey mt-0 mx-3 right-element">
+                            Regresar
+                        </a>
+                    </div>
+                    <div>
+                        <p class="mb-0">A continuación, introduce cada uno de los descuentos directos que el colaborador estará pagando con cada quincena que transcurre.</p>
+                    </div>
+                        <div class="mt-5 table-ceter col-md-12 px-0">
+                            <h3 class="font-weight-bold">Acreedores</h3>
+                            <table class="table table-hover ">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Monto</th>
+                                    <th># de Cuotas</th>
+                                    <th>Cuotas Pagadas</th>
+                                    <th>Opciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="creditor,iterStat : ${employee.creditors}">
+                                    <td th:text="${iterStat.count}"></td>
+                                    <td th:text="${creditor.name}">Sucasa</td>
+                                    <td th:text="${creditor.amount}">200</td>
+                                    <td th:text="${creditor.payments}">20</td>
+                                    <td th:text="${creditor.paymentsMade}">0</td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                        <a th:href="@{/creditor/{id}(id=${creditor.id})}" class="mx-4 font-weight-bold">Editar</a>
+                                            <form th:id="'deleteForm' + ${creditor.id}" action="#"
+                                                  th:action="@{/creditor/{id}(id=${employee.id})}" th:method="delete">
+                                            <a href="javascript:void(0);" class="mx-4 font-weight-bold"
+                                               th:onclick="'deleteCreditor(\''+ 'deleteForm' + ${creditor.id} + '\');'">Eliminar</a>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                    <div class="mt-5 table-ceter col-md-12 px-0" th:unless="${hasCreditors}">
+                        <div><p class="mb-0">No hay acreedores registrados para este colaborador. Agrega uno.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!--/Main Navigation-->
+
+<th:block th:include="fragments/confirmModal :: confirmModal"/>
+
+<th:block th:include="fragments/scripts :: scripts"/>
+
+</body>
+</html>

@@ -1,31 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="full-height" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <head>
     <!--/*/ <th:block th:include="fragments/stylesApp :: head"/> /*/-->
-
     <title>Home</title>
-
 </head>
-
 <body class="body-background">
-
 <div th:include="fragments/navBar :: navbar"></div>
-
-
 <!--Main Navigation-->
 <main>
-
     <div class="container flex-top">
-
         <div class="card card-cascade">
-
             <div class="modal-body">
-
                 <div class="col-md-12 p-3">
-
                     <div>
-
                         <ul class="nav">
                             <li class="nav-item">
                                 <a class="nav-link active" th:href="@{/}">Colaboradores Permanentes</a>
@@ -33,47 +20,32 @@
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/temporary-employee}">Colaboradores Temporales</a>
                             </li>
-
                         </ul>
-
                         <div class="d-inline">
-
                             <h2 id="name" class="mr-0 mb-0 font-weight-bold d-inline">Colaboradores Temporales</h2>
-
-
                             <div class="btn-group right-element">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">Planillas
                                 </button>
-
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/payroll">Quincenal</a>
                                     <a class="dropdown-item" href="#">Decimo</a>
                                 </div>
                             </div>
-
-
                         </div>
-
                         <a href="/employee"
                            class="btn btn-warning mt-0 mx-3 right-element">
                             Añadir Colaborador
                         </a>
-
                     </div>
-
                     <div class="mt-5">
                         <form class="form-inline">
                             <input class="form-control mr-sm-2" type="text" placeholder="Ej. Jose Perez"
                                    aria-label="Search">
                             <button class="btn btn-warning btn-sm my-0" type="submit">Buscar</button>
                         </form>
-
                     </div>
-
-
                     <div class="mt-2 table-ceter col-md-12 px-0">
-
                         <table id="formulasList" class="table table-hover">
                             <thead>
                             <tr>
@@ -83,7 +55,6 @@
                                 <th>Cargo</th>
                                 <th>Departamento</th>
                                 <th>Opciones</th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -95,69 +66,33 @@
                                 <td th:text="${employee.department.description}">Ventas</td>
                                 <td>
                                     <div class="d-flex flex-row">
-
+                                        <a th:href="@{/employee/creditors/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
+                                            Editar Acreedores
+                                        </a>
                                         <a th:href="@{/payroll/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
                                             Calcular Pago
                                         </a>
-
                                         <a th:href="@{/employee/{id}(id=${employee.id})}" class="mx-4 font-weight-bold">
                                             Editar
                                         </a>
-
-                                        <form th:id="'deleteForm' + ${employee.id}" action="#" th:action="@{/employee/{id}(id=${employee.id})}" th:method="delete">
-                                            <a href="javascript:void(0);" class="mx-4 font-weight-bold" th:onclick="'deleteEmployee(\''+ 'deleteForm' + ${employee.id} + '\');'">Eliminar</a>
+                                        <form th:id="'deleteForm' + ${employee.id}" action="#"
+                                              th:action="@{/employee/{id}(id=${employee.id})}" th:method="delete">
+                                            <a href="javascript:void(0);" class="mx-4 font-weight-bold"
+                                               th:onclick="'deleteEmployee(\''+ 'deleteForm' + ${employee.id} + '\');'">Eliminar</a>
                                         </form>
-
-
                                     </div>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
-
                     </div>
-
                     <div th:include="fragments/navBar :: botonNavbar"></div>
-
-
                 </div>
-
-            </div>
-        </div>
-
-    </div>
-
-</main>
-
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-danger" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <p class="heading lead">Eliminar colaborador</p>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="text-center">
-                    <p>Esta seguro que desea eliminar a este colaborador? No podrá deshacer esta accion</p>
-                </div>
-            </div>
-
-            <div class="modal-footer justify-content-center">
-                <button id="confirmDeleteButton" type="button" class="btn btn-danger">Eliminar</button>
-                <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
-</div>
-
-<!--/Main Navigation-->
-
+</main><!--/Main Navigation-->
+<th:block th:include="fragments/confirmModal :: confirmModal"/>
 <th:block th:include="fragments/scripts :: scripts"/>
-
 </body>
 </html>

@@ -3,8 +3,8 @@ package com.calidad2018.pcc.creditor;
 import com.calidad2018.pcc.employee.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 public class Creditor {
@@ -14,11 +14,13 @@ public class Creditor {
 
     private String name;
 
-    private Double monthlyAmount;
+    private Double amount;
 
-    private Date startDate;
+    @NotNull
+    private int payments = 0;
 
-    private Date endDate;
+    @NotNull
+    private int paymentsMade = 0;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -44,28 +46,12 @@ public class Creditor {
         this.name = name;
     }
 
-    public Double getMonthlyAmount() {
-        return monthlyAmount;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setMonthlyAmount(Double monthlyAmount) {
-        this.monthlyAmount = monthlyAmount;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public Employee getEmployee() {
@@ -75,4 +61,21 @@ public class Creditor {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
+    public int getPayments() {
+        return payments;
+    }
+
+    public int getPaymentsMade() {
+        return paymentsMade;
+    }
+
+    public void setPaymentsMade(int paymentsMade) {
+        this.paymentsMade = paymentsMade;
+    }
+
+    public void setPayments(int payments) {
+        this.payments = payments;
+    }
+
 }
