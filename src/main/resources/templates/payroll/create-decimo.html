@@ -14,12 +14,11 @@
                 <div class="col-md-12 p-3">
                     <div>
                         <div class="d-inline">
-                            <h2 id="name" th:if="${currentMonth != null}" th:text="'Planilla de ' + ${currentMonth}"
-                                class="mr-0 mb-0 font-weight-bold d-inline"></h2>
+
                             <h2  th:if="${currentMonth == null}" th:text="'Pago de décimo'"
                                 class="mr-0 mb-0 font-weight-bold d-inline"></h2>
                         </div>
-                        <form method="post" th:action="@{|/payroll/${payroll.id}|}" th:object="${payroll}">
+                        <form method="post" th:action="@{|/payroll-decimo/${payroll.id}|}" th:object="${payroll}">
 
                             <input type="hidden" th:field="*{id}">
 
@@ -36,9 +35,7 @@
                     </div>
                     <div>
                         <p class="mb-0">Departamento de recursos humanos - Planilla</p>
-                        <p class="mb-0" th:if="${payrollTerm != null}" th:text="'Pago de Planilla de ' + ${payrollTerm} + ' Quincena'"></p>
                         <p class="mb-0" th:if="${payrollTerm == null}" th:text="'Tipo: Pago de Décimo de  ' + ${#dates.format(#dates.createNow(), 'MMMM')} + ' ' + ${#dates.format(#dates.createNow(), 'yyyy')}"></p>
-                        <p class="mb-0" th:if="${currentDate != null}" th:text="'Fecha actual: ' + ${currentDate}"></p>
                         <p class="mb-0" th:if="${currentDate == null}" th:text="'Fecha actual: ' + ${#dates.format(#dates.createNow(), 'dd EEE MMMM yyyy')}"></p>
                     </div>
 

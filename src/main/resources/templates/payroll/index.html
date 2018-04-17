@@ -14,7 +14,7 @@
                 <div class="col-md-12 p-3">
                     <div>
                         <div class="d-inline">
-                            <h2 id="name" th:text="'Planillas creadas'"
+                            <h2 id="name" th:text="'Planillas Pagadas'"
                                 class="mr-0 mb-0 font-weight-bold d-inline"></h2>
                         </div>
                     </div>
@@ -42,7 +42,52 @@
                                 <td th:text="${iterStat.count}" class="block">1</td>
                                 <td th:text="${payroll.name}" class="block">Juan Solis</td>
                                 <td  class="block">
-                                    <a href="">ver</a>
+                                    <a th:href="@{|/payroll/show/${payroll.id}|}">ver</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container flex-top mt-5">
+        <div class="card card-cascade">
+            <div class="modal-body">
+                <div class="col-md-12 p-3">
+                    <div>
+                        <div class="d-inline">
+                            <h2  th:text="'Planillas Pagadas - Décimo'"
+                                class="mr-0 mb-0 font-weight-bold d-inline"></h2>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="mb-0">Departamento de recursos humanos - Planillas</p>
+                        <a href="/"
+                           class="btn btn-grey mt-0 mx-3 right-element">
+                            Salir
+                        </a>
+
+                    </div>
+
+                    <div class="mt-5 col-md-12 px-0 table-responsive">
+                        <table  class="table table-sm table-fixed">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="payroll,iterStat : ${payrollsDecimo}">
+                                <td th:text="${iterStat.count}" class="block">1</td>
+                                <td th:text="${payroll.name}" class="block">Juan Solis</td>
+                                <td  class="block">
+                                    <a th:href="@{|/payroll-decimo/show/${payroll.id}|}">ver</a>
                                 </td>
                             </tr>
                             </tbody>

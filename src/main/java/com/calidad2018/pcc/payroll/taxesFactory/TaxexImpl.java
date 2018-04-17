@@ -66,4 +66,24 @@ public class TaxexImpl implements Taxes{
 
         return payrollTaxes;
     }
+
+    public double socialSecurityDecimoTax(double salary) {
+        return Round.Round(salary* Constants.SOCIAL_SECURITY_DECIMO_TAX);
+    }
+
+    @Override
+    public PayrollTaxes payrollTaxesDecimo(double salary) {
+
+        PayrollTaxes payrollTaxes = new PayrollTaxes();
+
+        payrollTaxes.setSocialSecurityTax(socialSecurityDecimoTax(salary));
+
+        payrollTaxes.setEducationTax(educationTax(salary));
+
+        payrollTaxes.setRentTax(irsTax(salary));
+
+        payrollTaxes.setTotalInTax(Round.Round(payrollTaxes.getSocialSecurityTax() + payrollTaxes.getEducationTax() + payrollTaxes.getRentTax()));
+
+        return payrollTaxes;
+    }
 }

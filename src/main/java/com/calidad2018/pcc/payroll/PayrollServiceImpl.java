@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -61,5 +62,10 @@ public class PayrollServiceImpl implements EntityService<Payroll> {
             return payrollArray.get(0);
         }
         return null;
+    }
+
+    public List<Payroll> findByDate(Date startDay, Date endDay){
+
+        return dao.findByStateAndStartDateBetween(true,startDay,endDay);
     }
 }

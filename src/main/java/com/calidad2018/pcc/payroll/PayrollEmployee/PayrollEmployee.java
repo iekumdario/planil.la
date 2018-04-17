@@ -5,6 +5,7 @@ import com.calidad2018.pcc.creditor.Creditor;
 import com.calidad2018.pcc.employee.Employee;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
 import com.calidad2018.pcc.payroll.Payroll;
+import com.calidad2018.pcc.payrollDecimo.PayrollDecimo;
 
 import javax.persistence.*;
 
@@ -25,6 +26,9 @@ public class PayrollEmployee  extends BaseEntityId{
     @ManyToOne
     private Payroll payroll;
 
+    @ManyToOne
+    private PayrollDecimo payrollDecimo;
+
     @OneToOne (mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private PayrollTaxes taxes;
 
@@ -43,6 +47,13 @@ public class PayrollEmployee  extends BaseEntityId{
         super();
         this.employee = employee;
         this.payroll = payroll;
+        this.creditorDebt = getTotalCreditorDebt(employee);
+    }
+
+    public PayrollEmployee(Employee employee, PayrollDecimo payroll) {
+        super();
+        this.employee = employee;
+        this.payrollDecimo = payroll;
         this.creditorDebt = getTotalCreditorDebt(employee);
     }
 
@@ -102,5 +113,13 @@ public class PayrollEmployee  extends BaseEntityId{
             }
         }
         return otherDebt;
+    }
+
+    public PayrollDecimo getPayrollDecimo() {
+        return payrollDecimo;
+    }
+
+    public void setPayrollDecimo(PayrollDecimo payrollDecimo) {
+        this.payrollDecimo = payrollDecimo;
     }
 }

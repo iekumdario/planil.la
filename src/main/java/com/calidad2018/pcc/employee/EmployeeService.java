@@ -1,5 +1,6 @@
 package com.calidad2018.pcc.employee;
 
+import java.util.Date;
 import java.util.List;
 
 public interface EmployeeService<T> {
@@ -8,4 +9,5 @@ public interface EmployeeService<T> {
     public void save(T entity);
     public void delete(Long id);
     public List<T> findByContractType(String type);
+    public List<T> findBetweeDate(Date startDate);
 }

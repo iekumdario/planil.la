@@ -29,6 +29,6 @@ INSERT INTO `Contract` VALUES
   (3,3500,NULL,21.875,'2018-01-25 00:04:00',123,1,NULL);
 
 INSERT INTO `Employee` VALUES
-  (1,'','panama','BHR','1993-01-05 00:01:00','juanperez@hola.com','Juan','MASCULINO','123','Perez','123','123',1,3,3),
-  (2,'','test','ASM','2000-01-09 00:02:00','test@test.com','Jose','MASCULINO','123','Quintero','123','123',2,1,1),
-  (3,'123','123','BWA','2000-01-05 00:02:00','123@123.com','Juana','FEMENINO','123','Perea','123','123',3,2,4);
+  (1,'','panama','BHR','1993-01-05 00:01:00','juanperez@hola.com','Juan','MASCULINO','1234','Perez','123','123',1,3,3),
+  (2,'','test','ASM','2000-01-09 00:02:00','test@test.com','Jose','MASCULINO','123267','Quintero','123','123',2,1,1),
+  (3,'123','123','BWA','2000-01-05 00:02:00','123@123.com','Juana','FEMENINO','1231092','Perea','123','123',3,2,4);

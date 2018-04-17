@@ -7,6 +7,8 @@ import com.calidad2018.pcc.employee.EmployeeService;
 import com.calidad2018.pcc.payroll.PayRollTaxes.PayrollTaxes;
 import com.calidad2018.pcc.payroll.PayrollEmployee.PayrollEmployee;
 import com.calidad2018.pcc.payroll.taxesFactory.Taxes;
+import com.calidad2018.pcc.payrollDecimo.PayrollDecimo;
+import com.calidad2018.pcc.payrollDecimo.PayrollDecimoServiceImpl;
 import com.calidad2018.pcc.utils.Constants;
 import com.calidad2018.pcc.utils.Round;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class PayrollController {
     private PayrollServiceImpl payrollService;
 
     @Autowired
+    private PayrollDecimoServiceImpl payrollDecimoService;
+
+    @Autowired
     private EntityService<Creditor> creditorService;
 
     @Autowired
@@ -49,6 +54,7 @@ public class PayrollController {
         employees.forEach(employee -> {
             boolean allowPayment;
             Payroll lastEmployeePayroll = payrollService.findLastEmployeePayroll(employee);
+
             if(lastEmployeePayroll == null){
                 // no payrolls yet for this employee
                 allowPayment = true;
@@ -143,10 +149,28 @@ public class PayrollController {
 
         List<Payroll> payrolls = (List<Payroll>) payrollService.findByState(true);
 
+        List<PayrollDecimo> payrollsDecimo = (List<PayrollDecimo>) payrollDecimoService.findByState(true);
+
         model.addAttribute("payrolls", payrolls);
+
+        model.addAttribute("payrollsDecimo", payrollsDecimo);
 
         return "payroll/index";
     }
+    @RequestMapping(value = "/show/{id}")
+    public String showPayroll(Model model,@PathVariable Long id) {
+
+        Payroll payroll = payrollService.findById(id);
+
+        List<PayrollEmployee> payrollEmployees = new ArrayList<>(payroll.getEmployees());
+
+        model.addAttribute("employees", payrollEmployees);
+
+        model.addAttribute("payroll", payroll);
+
+        return "payroll/detail";
+    }
+
 
     private void createAndSavePayroll(Model model, List<PayrollEmployee> payrollEmployees, Payroll payroll) {
         createAndSavePayroll(model,payrollEmployees,payroll,false);

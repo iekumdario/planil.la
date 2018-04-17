@@ -11,4 +11,6 @@ public interface Taxes {
     double irsTax(double salary);
 
     PayrollTaxes payrollTaxes(double salary);
+
+    PayrollTaxes payrollTaxesDecimo(double salary);
 }
